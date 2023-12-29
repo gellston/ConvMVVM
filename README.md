@@ -29,10 +29,13 @@ collection.RegisterCache<CModel>((container) =>{
     return model;
 })
 
+collection.RegisterCache<DModel>(new DModel());
+
 //ioc container creation
 var container = collection.CreateContainer();
 var aModel1 = container.GetService<AModel>();
 var bModel1 = container.GetService<IBModel>();
+var dModel = container.GetService<DModel>();
 
 ```
 
