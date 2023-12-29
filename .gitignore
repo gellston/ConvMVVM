@@ -8,3 +8,5 @@
 /ConvMVVM.Core/ConsoleTest/bin/x64/Debug/net7.0-windows
 /ConvMVVM.Core/ConsoleTest/obj
 /ConvMVVM.Core/ConvMVVM.Core/bin/x64/Debug/net7.0-windows
+/ConvMVVM.Core/UnitTestSharp/bin
+/ConvMVVM.Core/UnitTestSharp/obj
