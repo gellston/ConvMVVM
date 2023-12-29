@@ -8,29 +8,7 @@ namespace ConsoleTest
         static void Main(string[] args)
         {
 
-            var collection = ServiceCollection.Create();
-            collection.RegisterNoneCache<AModel>();
-            collection.RegisterCache<BModel>();
-
-            collection.RegisterCache<CModel>((serviceProvider) =>
-            {
-                var model = new CModel();
-
-                return model;
-            });
-
-            var container = collection.CreateContainer();
-
-
-            var aModel = container.GetService<AModel>();
-            var bModel = container.GetService<BModel>();
-
-
-
-
-
-
-            System.Diagnostics.Debug.WriteLine(aModel.ToString());
+           
         }
     }
 }

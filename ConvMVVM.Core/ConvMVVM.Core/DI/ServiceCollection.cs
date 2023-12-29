@@ -45,6 +45,11 @@ namespace ConvMVVM.Core.DI
             this.Types[typeof(TImplementation)] = this.CreateTypeInfo(typeof(TImplementation), true, null, null);
         }
 
+        public void RegisterCache<TImplementation>(TImplementation implementation) where TImplementation : class
+        {
+            this.Types[typeof(TImplementation)] = this.CreateTypeInfo(typeof(TImplementation), true, implementation, null);
+        }
+
         public void RegisterNoneCache<TInterface, TImplementation>() where TImplementation : TInterface
         {
             this.Types[typeof(TInterface)] = this.CreateTypeInfo(typeof(TImplementation), false, null, null);
@@ -59,12 +64,6 @@ namespace ConvMVVM.Core.DI
         {
             this.Types[typeof(TInterface)] = this.CreateTypeInfo(typeof(TImplementation), true, implementation, null);
         }
-
-        public void RegisterNoneCache<TInterface, TImplementation>(TImplementation implementation) where TImplementation: TInterface
-        {
-            this.Types[typeof(TInterface)] = this.CreateTypeInfo(typeof(TImplementation), false, implementation, null);
-        }
-
 
         public void RegisterCache<TInterface, TImplementation>(Func<IContainer, TInterface> factory) where TImplementation : TInterface
         {
@@ -91,20 +90,19 @@ namespace ConvMVVM.Core.DI
             else return false;
         }
 
-        public Tuple<Type, bool, object, object> GetType<T>(Type type)
+        public IContainer CreateContainer()
         {
+            return new Container(this);
+        }
 
+        public Tuple<Type, bool, object, object> GetType(Type type)
+        {
             if (!CheckType(type))
             {
                 throw new InvalidOperationException("Invalid key type");
             }
 
             return this.Types[type];
-        }
-
-        public IContainer CreateContainer()
-        {
-            return new Container(this);
         }
 
 

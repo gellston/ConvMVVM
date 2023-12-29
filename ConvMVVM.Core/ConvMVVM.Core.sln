@@ -5,7 +5,9 @@ VisualStudioVersion = 17.8.34316.72
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConvMVVM.Core", "ConvMVVM.Core\ConvMVVM.Core.csproj", "{737ECA8B-F515-4C0C-807B-71B6ED8DD11E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTest", "ConsoleTest\ConsoleTest.csproj", "{41D3EF3E-ECE8-40C6-BF6D-5DBBC586C186}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleTest", "ConsoleTest\ConsoleTest.csproj", "{41D3EF3E-ECE8-40C6-BF6D-5DBBC586C186}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestSharp", "UnitTestSharp\UnitTestSharp.csproj", "{96FA7443-78AE-46C8-847D-1208CF280218}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,6 +33,14 @@ Global
 		{41D3EF3E-ECE8-40C6-BF6D-5DBBC586C186}.Release|Any CPU.Build.0 = Release|Any CPU
 		{41D3EF3E-ECE8-40C6-BF6D-5DBBC586C186}.Release|x64.ActiveCfg = Release|x64
 		{41D3EF3E-ECE8-40C6-BF6D-5DBBC586C186}.Release|x64.Build.0 = Release|x64
+		{96FA7443-78AE-46C8-847D-1208CF280218}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96FA7443-78AE-46C8-847D-1208CF280218}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96FA7443-78AE-46C8-847D-1208CF280218}.Debug|x64.ActiveCfg = Debug|x64
+		{96FA7443-78AE-46C8-847D-1208CF280218}.Debug|x64.Build.0 = Debug|x64
+		{96FA7443-78AE-46C8-847D-1208CF280218}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96FA7443-78AE-46C8-847D-1208CF280218}.Release|Any CPU.Build.0 = Release|Any CPU
+		{96FA7443-78AE-46C8-847D-1208CF280218}.Release|x64.ActiveCfg = Release|Any CPU
+		{96FA7443-78AE-46C8-847D-1208CF280218}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

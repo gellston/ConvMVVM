@@ -16,7 +16,7 @@ namespace ConsoleTest.Model
         #region Constructor
         public CModel()
         {
-
+            System.Diagnostics.Debug.WriteLine("test222");
         }
         #endregion
 

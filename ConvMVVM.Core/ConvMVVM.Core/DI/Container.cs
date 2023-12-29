@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,7 +22,6 @@ namespace ConvMVVM.Core.DI
             {
                 throw new InvalidOperationException("Invalid service collection");
             }
-
             this.serviceCollection = services;
         }
         #endregion
@@ -44,12 +44,12 @@ namespace ConvMVVM.Core.DI
                 var cacheObject = typeInfo.Item3;
                 var callback = typeInfo.Item4;
                 var defaultConstructors = objectType.GetConstructors();
-                if(defaultConstructors.Count() <= 0)
+                if(defaultConstructors.Count() <= 0 && cacheObject == null)
                 {
                     throw new InvalidOperationException("There is no constructor");
                 }
 
-                if (cacheOrNot == false && callback == null)
+                if (cacheOrNot == false && callback == null && cacheObject == null)
                 {
                     var defaultConstructor = defaultConstructors[0];
                     var defaultParams = defaultConstructor.GetParameters();
@@ -58,20 +58,14 @@ namespace ConvMVVM.Core.DI
                     return service;
                 }
                 
-                if(cacheOrNot == false && callback != null)
+                if(cacheOrNot == false && callback != null && cacheObject == null)
                 {
-                    //var service = callback(this);
-                    //var methodInfo = callback.GetType().GetMethod("Invoke");
-                    //var method = methodInfo.MakeGenericMethod()
-
-                  
-
-
-
-                    return null;
+                    var methodInfo = callback.GetType().GetMethod("Invoke");
+                    var service = methodInfo.Invoke(callback, new[] { this });
+                    return service;
                 }
 
-                if(cacheOrNot == true && callback == null)
+                if(cacheOrNot == true && callback == null && cacheObject == null)
                 {
                     if (this.cacheObjects.ContainsKey(type) == true)
                         return this.cacheObjects[type];
@@ -84,14 +78,24 @@ namespace ConvMVVM.Core.DI
                     return service;
                 }
 
-                if(cacheOrNot == true && callback != null)
+                if(cacheOrNot == true && callback != null && cacheObject == null)
                 {
                     if (this.cacheObjects.ContainsKey(type) == true)
                         return this.cacheObjects[type];
 
-                    //var service = callback(this);
-                    //this.cacheObjects[type] = service;
-                    return null;
+                    var methodInfo = callback.GetType().GetMethod("Invoke");
+                    var service = methodInfo.Invoke(callback, new[] { this });
+                    this.cacheObjects[type] = service;
+                    return service;
+                }
+
+                if (cacheOrNot == true && callback == null && cacheObject != null)
+                {
+                    if (this.cacheObjects.ContainsKey(type) == true)
+                        return this.cacheObjects[type];
+
+                    this.cacheObjects[type] = cacheObject;
+                    return cacheObject;
                 }
 
                 throw new InvalidOperationException("Invalid service collection infomation");
