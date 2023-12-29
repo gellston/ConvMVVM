@@ -1,8 +1,8 @@
 
 ConvMVVM
 =======================
-MrD is a free image labeling and training tool developed in C# WPF based on Visual Studio 2022 <br/>
-The current version supports labeling classification datasets and training, auto labeling.
+ConvMVVM is free MVVM library for WPF inspired by Community Toolkit library and Prism frameworks.
+
 
 
 
