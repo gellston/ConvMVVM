@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ConvMVVM.Core.DI
+namespace ConvMVVM.Core.Attributes
 {
-    public interface IContainer
+    [AttributeUsage(AttributeTargets.Method)]
+    public class RelayCommandAttribute : Attribute
     {
-        public TInterface GetService<TInterface>() where TInterface: class;
     }
 }

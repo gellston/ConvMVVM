@@ -6,14 +6,14 @@ using System.Text;
 using System.Threading.Tasks;
 using static System.Net.Mime.MediaTypeNames;
 
-namespace ConvMVVM.Core.DI
+namespace ConvMVVM.Core.IOC
 {
     public class Container : IContainer
     {
         #region Private Property
         private readonly IServiceCollection serviceCollection;
         private readonly Dictionary<Type, object> cacheObjects = new Dictionary<Type, object>();
-        #endregion
+        #endregion//
 
         #region Constructor
         public Container(IServiceCollection services)

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ConvMVVM.Core.DI
+namespace ConvMVVM.Core.IOC
 {
     public interface IServiceCollection
     {

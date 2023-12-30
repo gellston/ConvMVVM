@@ -5,7 +5,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ConvMVVM.Core.DI
+namespace ConvMVVM.Core.IOC
 {
     public class ServiceCollection : IServiceCollection
     {

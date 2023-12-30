@@ -1,5 +1,6 @@
-﻿using ConsoleTest.Model;
-using ConvMVVM.Core.DI;
+﻿
+
+
 
 namespace ConsoleTest
 {
@@ -7,8 +8,7 @@ namespace ConsoleTest
     {
         static void Main(string[] args)
         {
-
-           
+            
         }
     }
 }

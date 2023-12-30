@@ -11,7 +11,7 @@ namespace UnitTestSharp
         public void CreateCollection()
         {
 
-            var collection = ConvMVVM.Core.DI.ServiceCollection.Create();
+            var collection = ConvMVVM.Core.IOC.ServiceCollection.Create();
 
             Assert.IsNotNull(collection, "collection null check");
         }
@@ -20,7 +20,7 @@ namespace UnitTestSharp
         public void ContainerCreation()
         {
 
-            var collection = ConvMVVM.Core.DI.ServiceCollection.Create();
+            var collection = ConvMVVM.Core.IOC.ServiceCollection.Create();
             var container = collection.CreateContainer();
 
             Assert.IsNotNull(collection, "collection null check");
@@ -32,7 +32,7 @@ namespace UnitTestSharp
         public void CacheObjectTest1()
         {
 
-            var collection = ConvMVVM.Core.DI.ServiceCollection.Create();
+            var collection = ConvMVVM.Core.IOC.ServiceCollection.Create();
             collection.RegisterCache<AModel>();
             collection.RegisterCache<IBModel, BModel>();
 
@@ -51,7 +51,7 @@ namespace UnitTestSharp
         public void CacheObjectTest2()
         {
 
-            var collection = ConvMVVM.Core.DI.ServiceCollection.Create();
+            var collection = ConvMVVM.Core.IOC.ServiceCollection.Create();
             collection.RegisterCache<AModel>((container) =>
             {
                 var model = new AModel();
@@ -80,7 +80,7 @@ namespace UnitTestSharp
         public void CacheObjectTest3()
         {
 
-            var collection = ConvMVVM.Core.DI.ServiceCollection.Create();
+            var collection = ConvMVVM.Core.IOC.ServiceCollection.Create();
             collection.RegisterCache<AModel>();
             collection.RegisterCache<IBModel, BModel>();
             collection.RegisterCache<CModel>();
@@ -105,7 +105,7 @@ namespace UnitTestSharp
         public void CacheObjectTest4()
         {
 
-            var collection = ConvMVVM.Core.DI.ServiceCollection.Create();
+            var collection = ConvMVVM.Core.IOC.ServiceCollection.Create();
             collection.RegisterCache<AModel>();
             collection.RegisterCache<IBModel, BModel>();
             collection.RegisterCache<CModel>();
@@ -130,7 +130,7 @@ namespace UnitTestSharp
         public void CacheObjectTest5()
         {
 
-            var collection = ConvMVVM.Core.DI.ServiceCollection.Create();
+            var collection = ConvMVVM.Core.IOC.ServiceCollection.Create();
             collection.RegisterCache<AModel>(new AModel());
             collection.RegisterCache<IBModel>(new BModel());
             collection.RegisterCache<CModel>();
@@ -156,7 +156,7 @@ namespace UnitTestSharp
         public void NoneCacheObjectTest1()
         {
 
-            var collection = ConvMVVM.Core.DI.ServiceCollection.Create();
+            var collection = ConvMVVM.Core.IOC.ServiceCollection.Create();
             collection.RegisterNoneCache<AModel>();
             collection.RegisterNoneCache<IBModel, BModel>();
             collection.RegisterNoneCache<CModel>();
@@ -182,7 +182,7 @@ namespace UnitTestSharp
         public void NoneCacheObjectTest2()
         {
 
-            var collection = ConvMVVM.Core.DI.ServiceCollection.Create();
+            var collection = ConvMVVM.Core.IOC.ServiceCollection.Create();
             collection.RegisterNoneCache<AModel>((container) =>
             {
                 return new AModel();
