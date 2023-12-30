@@ -39,6 +39,29 @@ var dModel = container.GetService<DModel>();
 
 ```
 
+ViewModel
+=======================
+```csharp
+
+partial class AViewModel : NotifyObject
+{
+    public AViewModel() { 
+    }
+
+    //it support code generator
+    [Property]
+    private string _Test1 = "";
+
+    private string _Test2 = "";
+    public string Test2
+    {
+        get => _Test2;
+        set => Property(ref _Test2, value);
+    }
+}
+
+```
+
 License
 =======================
 

@@ -10,28 +10,19 @@ namespace ConsoleTest
 {
     partial class AViewModel : NotifyObject
     {
-
-        #region Constructor
         public AViewModel() { 
         
             
         }
-        #endregion
-
-        #region Property
 
         [Property]
-        private string _Name = "";
+        private string _Test1 = "";
 
-        [Property]
-        private string _Test = "";
-
-        public void test()
+        private string _Test2 = "";
+        public string Test2
         {
-            this.Name = "";
-
-           
+            get => _Test2;
+            set => Property(ref _Test2, value);
         }
-        #endregion
     }
 }
