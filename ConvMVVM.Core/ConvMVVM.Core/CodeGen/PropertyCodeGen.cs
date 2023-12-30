@@ -17,12 +17,12 @@ namespace ConvMVVM.Core.CodeGen
         public void Initialize(IncrementalGeneratorInitializationContext context)
         {
 
-#if DEBUG
-            if (!Debugger.IsAttached)
-            {
-                Debugger.Launch();
-            }
-#endif 
+//#if DEBUG
+//            if (!Debugger.IsAttached)
+//            {
+//                Debugger.Launch();
+//            }
+//#endif 
 
             var classDeclarations = context.SyntaxProvider
                                            .CreateSyntaxProvider(predicate: static (s, _) => PropertyCodeGen.IsSyntaxForCodeGen(s),
