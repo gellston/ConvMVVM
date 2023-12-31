@@ -12,7 +12,6 @@ namespace ConvMVVM.Core.IOC
         public void RegisterNoneCache<TImplementation>() where TImplementation : class;
 
         public void RegisterCache<TInterface, TImplementation>(TImplementation implementation) where TImplementation : TInterface;
-        //public void RegisterNoneCache<TInterface, TImplementation>(TImplementation implementation) where TImplementation : TInterface;
 
         public void RegisterCache<TInterface, TImplementation>(Func<IContainer, TInterface> factory) where TImplementation : TInterface;
         public void RegisterNoneCache<TInterface, TImplementation>(Func<IContainer, TInterface> factory) where TImplementation : TInterface;
