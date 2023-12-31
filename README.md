@@ -1,7 +1,7 @@
 
-ConvMVVM
+ConvMVVM 
 =======================
-ConvMVVM is free MVVM library for WPF inspired by Community Toolkit library and Prism frameworks.
+ConvMVVM (Convergence MVVM) is free MVVM library for WPF inspired by Community Toolkit library and Prism frameworks.
 
 
 
