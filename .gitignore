@@ -12,3 +12,6 @@
 /ConvMVVM.Core/UnitTestSharp/obj
 /ConvMVVM.Core/ConvMVVM.Core/bin/x64/Debug/netstandard2.0
 /.vs
+/ConvMVVM.Core/ConvMVVM.Core/bin/x64/Release/netstandard2.0
+/ConvMVVM.Core/IOCContainerExample/bin/x64
+/ConvMVVM.Core/IOCContainerExample/obj
