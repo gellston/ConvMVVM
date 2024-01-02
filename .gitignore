@@ -29,3 +29,6 @@
 /Examples/IOCContainer/.vs
 /Examples/IOCContainer/IOCContainer/bin/x64/Debug/net7.0-windows
 /Examples/IOCContainer/IOCContainer/obj
+/Examples/RelayCommandExample/.vs/RelayCommandExample
+/Examples/RelayCommandExample/RelayCommandExample/bin/x64
+/Examples/RelayCommandExample/RelayCommandExample/obj
