@@ -1,4 +1,7 @@
 
+<center> 
+<img src="https://github.com/gellston/ConvMVVM/blob/development/Icon/convergence.png?raw=true" width=200 /> </center> 
+
 ConvMVVM 
 =======================
 ConvMVVM (Convergence MVVM) is free MVVM library for WPF inspired by Community Toolkit library and Prism frameworks.
