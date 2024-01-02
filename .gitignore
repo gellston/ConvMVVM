@@ -26,3 +26,6 @@
 /ConvMVVM/UnitTestSharp/obj
 /ConvMVVM/WpfTest/bin/x64/Debug/net7.0-windows
 /ConvMVVM/WpfTest/obj
+/Examples/IOCContainer/.vs
+/Examples/IOCContainer/IOCContainer/bin/x64/Debug/net7.0-windows
+/Examples/IOCContainer/IOCContainer/obj
