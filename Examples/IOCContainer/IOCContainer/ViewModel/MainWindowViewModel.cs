@@ -5,25 +5,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Input;
 
-namespace ConsoleTest
+namespace IOCContainer.ViewModel
 {
-    partial class AViewModel
+    partial class MainWindowViewModel
     {
-        public AViewModel() { 
-        
+        #region Constructor
+        public MainWindowViewModel() {
+
             
         }
+        #endregion
 
-        [Property]
-        private string _Test2 = "";
-
-
-        [RelayCommand]
-        private void Test()
+        #region Command
+        public void Test()
         {
 
         }
+        #endregion
     }
 }

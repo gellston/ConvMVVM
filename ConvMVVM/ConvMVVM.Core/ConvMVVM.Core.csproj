@@ -7,9 +7,11 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Platforms>AnyCPU;x64</Platforms>
 	<EnforceExtendedAnalyzerRules>true</EnforceExtendedAnalyzerRules>
-	<Version>1.0.1</Version>
+	<Version>1.0.8</Version>
 	<PackageIcon>convergence.png</PackageIcon>
 	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+	<IncludePackageReferencesDuringMarkupCompilation>true</IncludePackageReferencesDuringMarkupCompilation>
+	<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
   </PropertyGroup>
 
   <ItemGroup>
@@ -24,11 +26,13 @@
   </ItemGroup>
 
   <ItemGroup>
+	  
     <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.4">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.8.0" />
+	<None Include="$(OutputPath)\$(AssemblyName).dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
   </ItemGroup>
 
   <ItemGroup>

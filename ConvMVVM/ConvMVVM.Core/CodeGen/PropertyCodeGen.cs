@@ -131,6 +131,19 @@ namespace ConvMVVM.Core.CodeGen
                                                                DiagnosticSeverity.Error,
                                                                true);
                     context.ReportDiagnostic(Diagnostic.Create(description, Location.None));
+                    return;
+                }   
+
+                if(cls.BaseList == null)
+                {
+                    var description = new DiagnosticDescriptor("ConvMVVM0000",
+                                           "Wrong class modifier",
+                                           $"Invalid base class information",
+                                           "Problem",
+                                           DiagnosticSeverity.Error,
+                                           true);
+                    context.ReportDiagnostic(Diagnostic.Create(description, Location.None));
+                    return;
                 }
 
                 if(cls.BaseList.Types.Count == 0)
@@ -142,6 +155,7 @@ namespace ConvMVVM.Core.CodeGen
                                            DiagnosticSeverity.Error,
                                            true);
                     context.ReportDiagnostic(Diagnostic.Create(description, Location.None));
+                    return;
                 }
                 List<AutoFieldInfo> fieldList = GetFieldList(compilation, cls);
                 if (fieldList.Count == 0) continue;
@@ -157,6 +171,7 @@ namespace ConvMVVM.Core.CodeGen
                                                                DiagnosticSeverity.Error,
                                                                true);
                     context.ReportDiagnostic(Diagnostic.Create(description, Location.None));
+                    return;
                 }
       
                 var source = """
