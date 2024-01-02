@@ -1,4 +1,7 @@
 
+<center> 
+<img src="https://github.com/gellston/ConvMVVM/blob/development/Icon/convergence.png?raw=true" width=200 /> </center> 
+
 ConvMVVM 
 =======================
 ConvMVVM (Convergence MVVM) is free MVVM library for WPF inspired by Community Toolkit library and Prism frameworks.
@@ -15,7 +18,6 @@ Development Environment
 IOC Container
 =======================
 ```csharp
-
 var collection = ConvMVVM.Core.DI.ServiceCollection.Create();
 //it suport constructor injection 
 collection.RegisterCache<AModel>();
@@ -36,10 +38,9 @@ var container = collection.CreateContainer();
 var aModel1 = container.GetService<AModel>();
 var bModel1 = container.GetService<IBModel>();
 var dModel = container.GetService<DModel>();
-
 ```
 
-ViewModel
+Property 
 =======================
 ```csharp
 
@@ -59,6 +60,103 @@ partial class AViewModel : NotifyObject
         set => Property(ref _Test2, value);
     }
 }
+```
+
+
+RelayCommand
+=======================
+```csharp
+partial class MainWindowViewModel : NotifyObject
+{
+    public MainWindowViewModel() { 
+    }
+
+    [RelayCommand]
+    private void Test()
+    {
+        System.Diagnostics.Debug.WriteLine("no delay!!");
+    }
+    
+    [AsyncRelayCommand]
+    private async Task AsyncTest()
+    {
+        await Task.Delay(10000);
+        System.Diagnostics.Debug.WriteLine("delay!!");
+    }
+
+}
+```
+
+
+ViewModelLocator
+=======================
+```xml
+<Window x:Class="RelayCommandExample.View.MainWindowView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:RelayCommandExample"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800"
+        xmlns:convMVVM="https://github.com/gellston/ConvMVVM"
+        convMVVM:ViewModelLocator.AutoWireViewModel="True"> 
+        //Auto Wire ViewModel//
+</Window>
+```
+
+
+EventToCommand
+=======================
+```xml
+<Window x:Class="EventToCommandExample.View.MainWindowView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:EventToCommandExample"
+        xmlns:behavior="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:convMVVM="https://github.com/gellston/ConvMVVM"
+        convMVVM:ViewModelLocator.AutoWireViewModel="True"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <behavior:Interaction.Behaviors>
+        <convMVVM:EventToCommand EventName="Loaded" 
+                                 Command="{Binding Loaded1Command}"></convMVVM:EventToCommand>
+        <convMVVM:EventToCommand EventName="Loaded" 
+                                 Command="{Binding Loaded2Command}"
+                                 CommandParameter="2"></convMVVM:EventToCommand>
+    </behavior:Interaction.Behaviors>
+</Window>
+```
+RegionManager
+=======================
+```xml
+<Window x:Class="RegionManagerExample.View.MainWindowView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:RegionManagerExample"
+        xmlns:convMVVM="https://github.com/gellston/ConvMVVM"
+        convMVVM:ViewModelLocator.AutoWireViewModel="True"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <DockPanel>
+        <Button Height="40"
+                Content="Navigate"
+                Command="{Binding TestCommand}"
+                DockPanel.Dock="Bottom"></Button>
+        <ContentControl convMVVM:RegionManager.RegionName="MainContent"></ContentControl>
+    </DockPanel>
+</Window>
+
+```
+
+TranslateService
+=======================
+```csharp
+//예제 준비중입니다...
 
 ```
 
