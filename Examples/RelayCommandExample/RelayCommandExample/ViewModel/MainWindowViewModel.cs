@@ -12,29 +12,22 @@ namespace RelayCommandExample.ViewModel
     {
         #region Constructor
         public MainWindowViewModel() { 
-        
-        
+
         }
         #endregion
 
         #region Command
-
         [RelayCommand]
         private void Test()
         {
             System.Diagnostics.Debug.WriteLine("no delay!!");
         }
-
-
         [AsyncRelayCommand]
         private async Task AsyncTest()
         {
-
             await Task.Delay(10000);
             System.Diagnostics.Debug.WriteLine("delay!!");
-
         }
-
         #endregion
     }
 }

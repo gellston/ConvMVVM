@@ -39,7 +39,7 @@ var dModel = container.GetService<DModel>();
 
 ```
 
-ViewModel
+Property 
 =======================
 ```csharp
 
@@ -59,6 +59,54 @@ partial class AViewModel : NotifyObject
         set => Property(ref _Test2, value);
     }
 }
+
+```
+
+
+RelayCommand
+=======================
+```csharp
+
+partial class MainWindowViewModel : NotifyObject
+{
+    public MainWindowViewModel() { 
+
+    }
+
+    [RelayCommand]
+    private void Test()
+    {
+        System.Diagnostics.Debug.WriteLine("no delay!!");
+    }
+    
+    [AsyncRelayCommand]
+    private async Task AsyncTest()
+    {
+        await Task.Delay(10000);
+        System.Diagnostics.Debug.WriteLine("delay!!");
+    }
+
+}
+
+```
+
+
+ViewModelLocator
+=======================
+```xml
+
+<Window x:Class="RelayCommandExample.View.MainWindowView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:RelayCommandExample"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800"
+        xmlns:convMVVM="https://github.com/gellston/ConvMVVM"
+        convMVVM:ViewModelLocator.AutoWireViewModel="True">
+</Window>
+
 
 ```
 
