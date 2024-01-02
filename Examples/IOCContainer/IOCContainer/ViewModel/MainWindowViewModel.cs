@@ -19,16 +19,11 @@ namespace IOCContainer.ViewModel
         #region Constructor
         public MainWindowViewModel(ITestService testService) {
             this.testService = testService;
-            
-        }
-        #endregion
 
-        #region Command
-        [RelayCommand]
-        public void Test()
-        {
             System.Diagnostics.Debug.WriteLine(this.testService.Test());
         }
         #endregion
+
+
     }
 }
