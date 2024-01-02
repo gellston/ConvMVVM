@@ -5,7 +5,7 @@ using UnitTestSharp.Model;
 namespace UnitTestSharp
 {
     [TestClass]
-    public class IocContainerTest
+    public class IocContainer
     {
         [TestMethod]
         public void CreateCollection()

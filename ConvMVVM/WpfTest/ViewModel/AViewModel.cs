@@ -21,18 +21,18 @@ namespace WpfTest.ViewModel
 
         #region Property
         [Property]
-        public string _Name;
+        public string _Name = "";
         #endregion
 
-        #region Command
-        public ICommand TestCommand
-        {
-            get => new RelayCommand(() =>
-            {
-                this.Name = "there is no cow level";
-              
-            });
-        }
-        #endregion
+        //#region Command
+        //public ICommand TestCommand
+        //{
+        //    get => new RelayCommand(() =>
+        //    {
+        //        this.Name = "there is no cow level";
+
+        //    });
+        //}
+        //#endregion
     }
 }

@@ -10,7 +10,7 @@ using ConvMVVM.Core.CodeGen.GenInfo;
 namespace ConvMVVM.Core.CodeGen
 {
     [Generator]
-    internal class PropertyCodeGen : IIncrementalGenerator
+    internal class RelayCommandCodeGen : IIncrementalGenerator
     {
         public void Initialize(IncrementalGeneratorInitializationContext context)
         {
@@ -20,16 +20,16 @@ namespace ConvMVVM.Core.CodeGen
 //            {
 //                Debugger.Launch();
 //            }
-//#endif 
+//#endif
 
             var classDeclarations = context.SyntaxProvider
-                                           .CreateSyntaxProvider(predicate: static (s, _) => PropertyCodeGen.IsSyntaxForCodeGen(s),
-                                                                 transform: static (ctx, _) => PropertyCodeGen.GetTargetForCodeGen(ctx))
+                                           .CreateSyntaxProvider(predicate: static (s, _) => RelayCommandCodeGen.IsSyntaxForCodeGen(s),
+                                                                 transform: static (ctx, _) => RelayCommandCodeGen.GetTargetForCodeGen(ctx))
                                            .Where(x => x != null);
 
 
             IncrementalValueProvider<(Compilation, ImmutableArray<ClassDeclarationSyntax>)> compilationAndClass = context.CompilationProvider.Combine(classDeclarations.Collect());
-            context.RegisterSourceOutput(compilationAndClass, static (spc, source) => PropertyCodeGen.PropertyCodeExecute(source.Item1, source.Item2, spc));
+            context.RegisterSourceOutput(compilationAndClass, static (spc, source) => RelayCommandCodeGen.RelayCommandCodeExecute(source.Item1, source.Item2, spc));
         }
 
 
@@ -61,7 +61,7 @@ namespace ConvMVVM.Core.CodeGen
                         }
                         INamedTypeSymbol attributeContainingTypeSymbol = attributeSymbol.ContainingType;
                         string fullName = attributeContainingTypeSymbol.ToDisplayString();
-                        if (fullName == "ConvMVVM.Core.Attributes.PropertyAttribute")
+                        if (fullName == "ConvMVVM.Core.Attributes.RelayCommandAttribute")
                         {
                             return classDeclarationSyntax;
                         }
@@ -87,30 +87,40 @@ namespace ConvMVVM.Core.CodeGen
             return "";
         }
 
-        internal static List<AutoFieldInfo> GetFieldList(Compilation compilation, MemberDeclarationSyntax cls)
+        internal static List<AutoMethodInfo> GetMethodList(Compilation compilation, MemberDeclarationSyntax cls)
         {
-            List<AutoFieldInfo> fieldList = new List<AutoFieldInfo>();
-
+            List<AutoMethodInfo> methodList = new List<AutoMethodInfo>();
             var model = compilation.GetSemanticModel(cls.SyntaxTree);
-
-            foreach (FieldDeclarationSyntax field in cls.DescendantNodes().OfType<FieldDeclarationSyntax>())
+            foreach (MethodDeclarationSyntax method in cls.DescendantNodes().OfType<MethodDeclarationSyntax>())
             {
-                foreach (var item in field.Declaration.Variables)
-                {
-                    AutoFieldInfo info = new AutoFieldInfo
-                    {
-                        Identifier = item.Identifier.ValueText,
-                        TypeName = field.Declaration.Type.ToString()
-                    };
+                
+                var returnType = method.ReturnType.ToString();
+                if (returnType != "void") continue;
 
-                    fieldList.Add(info);
+
+                switch (method.ParameterList.Parameters.Count)
+                {
+                    case 0:
+                        methodList.Add(new AutoMethodInfo()
+                        {
+                            MethodName = method.Identifier.ToString(),
+                            ArgumentType = "",
+                        });
+                        break;
+                    case 1:
+                        methodList.Add(new AutoMethodInfo()
+                        {
+                            MethodName = method.Identifier.ToString(),
+                            ArgumentType = method.ParameterList.Parameters[0].Type.ToString(),
+                        });
+                        break;
                 }
             }
 
-            return fieldList;
+            return methodList;
         }
 
-        internal static void PropertyCodeExecute(Compilation compilation, ImmutableArray<ClassDeclarationSyntax> classes, SourceProductionContext context)
+        internal static void RelayCommandCodeExecute(Compilation compilation, ImmutableArray<ClassDeclarationSyntax> classes, SourceProductionContext context)
         {
             if (classes.IsDefaultOrEmpty)
             {
@@ -133,7 +143,7 @@ namespace ConvMVVM.Core.CodeGen
                     context.ReportDiagnostic(Diagnostic.Create(description, Location.None));
                 }
 
-                if(cls.BaseList.Types.Count == 0)
+                if (cls.BaseList.Types.Count == 0)
                 {
                     var description = new DiagnosticDescriptor("ConvMVVM0002",
                                            "None inheritance",
@@ -143,63 +153,71 @@ namespace ConvMVVM.Core.CodeGen
                                            true);
                     context.ReportDiagnostic(Diagnostic.Create(description, Location.None));
                 }
-                List<AutoFieldInfo> fieldList = GetFieldList(compilation, cls);
-                if (fieldList.Count == 0) continue;
-                
 
-                foreach(var field in fieldList)
-                {
-                    if(field.Identifier.StartsWith("_") == true) continue;
-                    var description = new DiagnosticDescriptor("ConvMVVM0003",
-                                                               "Property should start with _ character",
-                                                               $"{clsNamespace}.{cls.Identifier.ValueText} class have wrong property : {field.Identifier}",
-                                                               "Problem",
-                                                               DiagnosticSeverity.Error,
-                                                               true);
-                    context.ReportDiagnostic(Diagnostic.Create(description, Location.None));
-                }
-      
+                List<AutoMethodInfo> methodList = GetMethodList(compilation, cls);
+                if (methodList.Count == 0) continue;
+
                 var source = """
                 using ConvMVVM.Core.Component;
+                using System.Windows.Input;
 
                 namespace {clsNamespace}{
                     partial class {clsName}{
                 
-                {fieldCollection}
+                {methodCollection}
                         
                     }
                 }
                 """;
 
-                source = source.Replace("{clsNamespace}", clsNamespace);
-                source = source.Replace("{clsName}", cls.Identifier.ValueText);
-
-
                 var propertyCodeGroup = "";
-                foreach(var field in fieldList)
+                foreach (var method in methodList)
                 {
-                   
-                    string propertyCode = """
+                    if(method.ArgumentType == "")
+                    {
+                        string propertyCode = """
 
-                                public {typeName} {fieldName}{
-                                    get => {_fieldName};
-                                    set => Property(ref {_fieldName}, value);
+                                public ICommand _{methodName}Command = null;
+                                public ICommand {methodName}Command{
+                                    get{
+                                        _{methodName}Command = new RelayCommand(()=> this.{methodName}());
+                                        return _{methodName}Command;
+                                    }
                                 }
 
-                    """;
+                        """;
 
-                    propertyCode = propertyCode.Replace("{typeName}", field.TypeName);
-                    propertyCode = propertyCode.Replace("{_fieldName}", field.Identifier);
+                        propertyCode = propertyCode.Replace("{methodName}", method.MethodName);
+                        propertyCodeGroup += propertyCode;
+                    }
+                    else
+                    {
+                        string propertyCode = """
 
-                    var fieldName = field.Identifier;
-                    fieldName = fieldName.Remove(0, 1);
-                    propertyCode = propertyCode.Replace("{fieldName}", fieldName);
-                    propertyCodeGroup += propertyCode;
+                                public ICommand _{methodName}Command = null;
+                                public ICommand {methodName}Command{
+                                    get{
+                                        _{methodName}Command = new RelayCommand<{arg}>((arg)=> this.{methodName}(arg));
+                                        return _{methodName}Command;
+                                    }
+                                }
+
+                        """;
+
+                        propertyCode = propertyCode.Replace("{methodName}", method.MethodName);
+                        propertyCode = propertyCode.Replace("{arg}", method.ArgumentType);
+                        propertyCodeGroup += propertyCode;
+                    }
+                   
                 }
 
-                source = source.Replace("{fieldCollection}", propertyCodeGroup);
+                source = source.Replace("{methodCollection}", propertyCodeGroup);
+                source = source.Replace("{clsNamespace}", clsNamespace);
+                source = source.Replace("{clsName}", cls.Identifier.ValueText);
+                source = source.Replace("{methodCollection}", propertyCodeGroup);
 
                 context.AddSource($"{clsNamespace}.{cls.Identifier.ValueText}.g.cs", SourceText.From(source, Encoding.UTF8));
+
             }
         }
         #endregion

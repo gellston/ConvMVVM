@@ -22,6 +22,8 @@ namespace WpfTest
         {
             ServiceLocator.DialogService.RegisterDialog<AWindowView>();
             ServiceLocator.RegionManager.RegisterCacheView<AView>();
+            ServiceLocator.ResourceContainer.ChangeResourceManager(WpfTest.Properties.Resources.ResourceManager);
+            ServiceLocator.ResourceContainer.ChangeCulture("kr");
         }
 
         protected override void ConfigureModule(ModuleCollection modules)

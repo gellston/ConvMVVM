@@ -20,6 +20,11 @@ namespace ConvMVVM.WPF.Service.ResourceContainer
             get; set;
         }
 
+        public string CultureName
+        {
+            get;
+        }
+
 
         public void ChangeCulture(string cultureName);
 

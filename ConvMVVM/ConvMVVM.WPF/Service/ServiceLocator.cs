@@ -1,5 +1,6 @@
 ﻿using ConvMVVM.Core.Service.DialogService;
 using ConvMVVM.Core.Service.RegionManager;
+using ConvMVVM.WPF.Service.ResourceContainer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,6 +35,16 @@ namespace ConvMVVM.WPF.Service
                 return regionManager;
             }
         }
+
+
+        public static ResourceContainer.IResourceContainer ResourceContainer
+        {
+            get
+            {
+                return ConvMVVM.WPF.Service.ResourceContainer.ResourceContainer.Instance;
+            }
+        }
+   
 
     }
 }

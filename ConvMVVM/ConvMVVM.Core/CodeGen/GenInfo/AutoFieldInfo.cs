@@ -1,5 +1,4 @@
-﻿
-namespace ConvMVVM.Core.CodeGen
+﻿namespace ConvMVVM.Core.CodeGen.GenInfo
 {
     internal struct AutoFieldInfo
     {

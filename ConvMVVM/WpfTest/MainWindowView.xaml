@@ -6,20 +6,20 @@
         xmlns:local="clr-namespace:WpfTest"
         mc:Ignorable="d"
         Height="450" Width="800"
-        xmlns:dialogService="clr-namespace:ConvMVVM.WPF.Service.DialogService;assembly=ConvMVVM.WPF"
-        xmlns:regionManager="clr-namespace:ConvMVVM.WPF.Service.RegionManager;assembly=ConvMVVM.WPF"
-        xmlns:locator="clr-namespace:ConvMVVM.WPF.Service.ViewModelLocator;assembly=ConvMVVM.WPF"
-        xmlns:markup="Exten
-        dialogService:DialogServiceViews.IsRegistered="True"
-        locator:ViewModelLocator.AutoWireViewModel="True"
-        >
+        xmlns:behavior="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:convMVVM="https://github.com/gellston/ConvMVVM"
+        convMVVM:DialogServiceViews.IsRegistered="True"
+        convMVVM:ViewModelLocator.AutoWireViewModel="True">
+    <behavior:Interaction.Behaviors>
+        <convMVVM:EventToCommand EventName="Loaded" Command="{Binding LoadedCommand}"></convMVVM:EventToCommand>
+    </behavior:Interaction.Behaviors>
+  
     <DockPanel>
-
-        <Grid Height="40"
-              DockPanel.Dock="Bottom">
-            <Button Command="{Binding TestCommand}"
-                    Content="Test"></Button>
-        </Grid>
-        <ContentControl regionManager:RegionManager.RegionName="MainContent"></ContentControl>
+        <UniformGrid Height="40"
+                     Rows="1"
+                     DockPanel.Dock="Bottom">
+            <Button Command="{Binding RunCommand}"></Button>
+        </UniformGrid>
+        <ContentControl convMVVM:RegionManager.RegionName="MainContent"></ContentControl>
     </DockPanel>
 </Window>

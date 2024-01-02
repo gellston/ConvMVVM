@@ -65,11 +65,43 @@ namespace ConvMVVM.WPF.Service.ResourceContainer
                 if (_ResourceManager != value)
                 {
                     _ResourceManager = value;
-                    if (_ResourceManager != null)
+                    if (PropertyChanged != null)
                     {
                         PropertyChanged.Invoke(this, new PropertyChangedEventArgs(string.Empty));
                     }
                 }
+            }
+        }
+
+        public string CultureName
+        {
+            get
+            {
+                if (CurrentCulture == null)
+                    return "None";
+
+                return CurrentCulture.Name;
+            }
+        }
+
+
+        public string this[string key]
+        {
+
+            get
+            {
+                if (this.ResourceManager == null)
+                {
+                    return $"[{key}]";
+                }
+
+                if (this.CurrentCulture == null)
+                {
+                    return $"[{key}]";
+                }
+
+                var res = this.ResourceManager.GetString(key, this.CurrentCulture);
+                return !string.IsNullOrWhiteSpace(res) ? res : $"[{key}]";
             }
         }
 
