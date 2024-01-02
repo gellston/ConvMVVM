@@ -126,6 +126,36 @@ EventToCommand
     </behavior:Interaction.Behaviors>
 </Window>
 ```
+RegionManager
+=======================
+```xml
+<Window x:Class="RegionManagerExample.View.MainWindowView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:RegionManagerExample"
+        xmlns:convMVVM="https://github.com/gellston/ConvMVVM"
+        convMVVM:ViewModelLocator.AutoWireViewModel="True"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <DockPanel>
+        <Button Height="40"
+                Content="Navigate"
+                Command="{Binding TestCommand}"
+                DockPanel.Dock="Bottom"></Button>
+        <ContentControl convMVVM:RegionManager.RegionName="MainContent"></ContentControl>
+    </DockPanel>
+</Window>
+
+```
+
+TranslateService
+=======================
+```csharp
+//예제 준비중입니다...
+
+```
 
 License
 =======================

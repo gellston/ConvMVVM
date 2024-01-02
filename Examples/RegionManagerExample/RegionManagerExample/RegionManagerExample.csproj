@@ -10,7 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="ConvMVVM.WPF" Version="1.0.8" />
+    <PackageReference Include="ConvMVVM.WPF" Version="1.0.9" />
   </ItemGroup>
 
 </Project>

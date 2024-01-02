@@ -17,7 +17,7 @@ namespace RegionManagerExample
     {
         protected override void ConfigureServiceLocator()
         {
-            //ServiceLocator.RegionManager.RegisterCacheView<AView>();
+            ServiceLocator.RegionManager.RegisterCacheView<AView>();
         }
 
         protected override void ConfigureServiceCollection(IServiceCollection serviceCollection)
@@ -28,8 +28,7 @@ namespace RegionManagerExample
 
         protected override void ConfigureServiceProvider(IServiceContainer serviceProvider)
         {
-            var regionManager = serviceProvider.GetService<IRegionManager>();
-            regionManager.RegisterCacheView<AView>();
+
         }
 
         protected override Window CreateWindow(IServiceContainer serviceProvider)
