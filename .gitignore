@@ -15,3 +15,14 @@
 /ConvMVVM.Core/ConvMVVM.Core/bin/x64/Release/netstandard2.0
 /ConvMVVM.Core/IOCContainerExample/bin/x64
 /ConvMVVM.Core/IOCContainerExample/obj
+/ConvMVVM/.vs
+/ConvMVVM/ConsoleTest/bin/x64/Debug/net7.0-windows
+/ConvMVVM/ConsoleTest/obj
+/ConvMVVM/ConvMVVM.Core/bin/x64
+/ConvMVVM/ConvMVVM.Core/obj
+/ConvMVVM/ConvMVVM.WPF/bin/x64
+/ConvMVVM/ConvMVVM.WPF/obj
+/ConvMVVM/UnitTestSharp/bin/x64
+/ConvMVVM/UnitTestSharp/obj
+/ConvMVVM/WpfTest/bin/x64/Debug/net7.0-windows
+/ConvMVVM/WpfTest/obj
