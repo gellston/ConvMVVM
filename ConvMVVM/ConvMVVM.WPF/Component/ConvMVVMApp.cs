@@ -15,9 +15,10 @@ namespace ConvMVVM.WPF.Component
         #region Constructor
         public ConvMVVMApp()
         {
-            ConfigureServiceLocator();
+        
             ConfigureModule(Modules);
             Services = ConfigureServices();
+            ConfigureServiceLocator();
 
         }
         #endregion
