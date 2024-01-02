@@ -1,5 +1,6 @@
 ﻿using ConvMVVM.Core.Attributes;
 using ConvMVVM.Core.Component;
+using IOCContainer.Service;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,19 +9,25 @@ using System.Threading.Tasks;
 
 namespace IOCContainer.ViewModel
 {
-    partial class MainWindowViewModel
+    public partial class MainWindowViewModel : NotifyObject
     {
-        #region Constructor
-        public MainWindowViewModel() {
 
+        #region Private Property
+        private readonly ITestService testService;
+        #endregion
+
+        #region Constructor
+        public MainWindowViewModel(ITestService testService) {
+            this.testService = testService;
             
         }
         #endregion
 
         #region Command
+        [RelayCommand]
         public void Test()
         {
-
+            System.Diagnostics.Debug.WriteLine(this.testService.Test());
         }
         #endregion
     }

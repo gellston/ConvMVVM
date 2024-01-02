@@ -1,6 +1,8 @@
 ﻿using ConvMVVM.Core.IOC;
 using ConvMVVM.Core.Module;
 using ConvMVVM.WPF.Component;
+using IOCContainer.Service;
+using IOCContainer.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,7 +27,8 @@ namespace IOCContainer
 
         protected override void ConfigureServiceCollection(IServiceCollection serviceCollection)
         {
-            
+            serviceCollection.RegisterCache<ITestService, TestService>();
+            serviceCollection.RegisterCache<MainWindowViewModel>();
         }
 
         protected override void ConfigureServiceProvider(IServiceContainer serviceProvider)
