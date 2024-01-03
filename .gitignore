@@ -44,3 +44,6 @@
 /Examples/IOCContainerExample/.vs
 /Examples/IOCContainerExample/IOCContainerExample/bin
 /Examples/IOCContainerExample/IOCContainerExample/obj
+/Examples/TranslateServiceExample/.vs/TranslateServiceExample
+/Examples/TranslateServiceExample/TranslateServiceExample/bin/x64/Debug/net7.0-windows
+/Examples/TranslateServiceExample/TranslateServiceExample/obj
