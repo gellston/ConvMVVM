@@ -1,13 +1,13 @@
 ﻿using ConvMVVM.Core.Attributes;
 using ConvMVVM.Core.Component;
-using IOCContainer.Service;
+using IOCContainerExample.Service;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IOCContainer.ViewModel
+namespace IOCContainerExample.ViewModel
 {
     public partial class MainWindowViewModel : NotifyObject
     {

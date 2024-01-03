@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IOCContainer.Service
+namespace IOCContainerExample.Service
 {
     public interface ITestService
     {
