@@ -41,3 +41,6 @@
 /Examples/RegionManagerExample/RegionManagerExample/obj
 /Examples/RegionManagerExample/RegionManagerExample/bin/x64/Debug/net7.0-windows
 /Examples/RegionManagerExample/.vs/ProjectEvaluation
+/Examples/IOCContainerExample/.vs
+/Examples/IOCContainerExample/IOCContainerExample/bin
+/Examples/IOCContainerExample/IOCContainerExample/obj
