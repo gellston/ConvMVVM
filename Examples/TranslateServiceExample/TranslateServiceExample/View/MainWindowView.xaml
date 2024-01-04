@@ -10,7 +10,8 @@
         Title="MainWindow" Height="450" Width="800">
     <DockPanel>
         <Button DockPanel.Dock="Bottom" Height="40" Content="{convMVVM:TranslateExtensions Language}"
-                Command="{Binding TestCommand}"></Button>
+                Command="{Binding TestCommand}">
+        </Button>
         <TextBlock Text="{convMVVM:TranslateExtensions TestContent}"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"></TextBlock>

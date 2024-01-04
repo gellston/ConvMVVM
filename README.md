@@ -223,7 +223,7 @@ namespace TranslateServiceExample.ViewModel
 
 ```
 
-TranslateService
+AutoViewTemplateSelector
 =======================
 ```
 ```
