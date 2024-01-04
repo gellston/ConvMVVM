@@ -17,6 +17,7 @@ Development Environment
 
 IOC Container
 =======================
+
 ```csharp
 var collection = ConvMVVM.Core.DI.ServiceCollection.Create();
 //it suport constructor injection 
@@ -40,6 +41,9 @@ var bModel1 = container.GetService<IBModel>();
 var dModel = container.GetService<DModel>();
 ```
 
+> it support constructor injection and lambda creation routine
+
+
 Property 
 =======================
 ```csharp
@@ -61,6 +65,7 @@ partial class AViewModel : NotifyObject
     }
 }
 ```
+> it support property changed notification and source generator for property
 
 
 RelayCommand
@@ -86,6 +91,7 @@ partial class MainWindowViewModel : NotifyObject
 
 }
 ```
+> it support RelayCommand and AsyncRelayCommand also support source generator for them
 
 
 ViewModelLocator
@@ -152,6 +158,7 @@ RegionManager
 </Window>
 
 ```
+> it support to place view with specific key name
 
 TranslateService
 =======================
@@ -204,11 +211,63 @@ namespace TranslateServiceExample
 
 
 ```
+> it support to change key string by culture information in resource file
 
 AutoViewTemplateSelector
 =======================
+```xml
+﻿<Window x:Class="AutoViewTemplateSelector.View.MainWindowView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AutoViewTemplateSelector"
+        xmlns:convMVVM="https://github.com/gellston/ConvMVVM"
+        convMVVM:ViewModelLocator.AutoWireViewModel="True"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+        </Grid.RowDefinitions>
+        <ContentControl Grid.Row="0"
+                        Content="{Binding AViewModel}">
+            <ContentControl.ContentTemplateSelector>
+                <convMVVM:AutoViewTemplateSelector></convMVVM:AutoViewTemplateSelector>
+            </ContentControl.ContentTemplateSelector>
+        </ContentControl>
+
+        <ListBox Grid.Row="1"
+                 ItemsSource="{Binding ViewModelCollection}"
+                 HorizontalContentAlignment="Stretch"
+                 VerticalContentAlignment="Stretch">
+            <ListBox.ItemTemplateSelector>
+                <convMVVM:AutoViewTemplateSelector></convMVVM:AutoViewTemplateSelector>
+            </ListBox.ItemTemplateSelector>
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="{x:Type ListBoxItem}">
+                    <Setter Property="Height" Value="40"></Setter>
+                </Style>
+            </ListBox.ItemContainerStyle>
+        </ListBox>
+
+        <ContentControl Grid.Row="2"
+                        Content="{Binding DViewModel}">
+            <ContentControl.ContentTemplateSelector>
+                <convMVVM:AutoViewTemplateSelector Fallback="FallbackView"></convMVVM:AutoViewTemplateSelector>
+            </ContentControl.ContentTemplateSelector>
+        </ContentControl>
+
+        <Button Grid.Row="3"
+                Content="View Change"
+                Command="{Binding UpdateCommand}"></Button>
+    </Grid>
+</Window>
 ```
-```
+> it support to place view by view model name automatically
 
 License
 =======================
