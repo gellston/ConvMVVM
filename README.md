@@ -176,50 +176,32 @@ TranslateService
 </Window>
 ```
 ```csharp
-namespace TranslateServiceExample.ViewModel
+namespace TranslateServiceExample
 {
-    partial class MainWindowViewModel : NotifyObject
+    public class App : ConvMVVMApp
     {
-
-        #region Private Property
-        private readonly ITranslateService translateService;
-        private readonly IResourceContainer resourceContainer;
-        #endregion
-
-        #region Constructor
-        public MainWindowViewModel(ITranslateService translateService,
-                                   IResourceContainer resourceContainer) { 
-        
-            this.translateService = translateService;
-            this.resourceContainer = resourceContainer;
-        }
-        #endregion
-
-        #region Command
-        [RelayCommand]
-        private void Test()
+        protected override void ConfigureServiceCollection(IServiceCollection serviceCollection)
         {
-            try
-            {
-                if(this.resourceContainer.CultureName == "en")
-                {
-                    this.resourceContainer.ChangeCulture("kr");
-                }
-                else
-                {
-                    this.resourceContainer.ChangeCulture("en");
-                }
-                System.Diagnostics.Debug.WriteLine(this.translateService["TestContent"]);
-                System.Diagnostics.Debug.WriteLine(this.translateService["Language"]);
-            }
-            catch(Exception ex)
-            {
-                System.Diagnostics.Debug.WriteLine(ex.Message);
-            }
+
+            serviceCollection.RegisterCache<MainWindowViewModel>();
+
         }
-        #endregion
+
+        protected override void ConfigureServiceLocator()
+        {
+           
+            ServiceLocator.ResourceContainer.ChangeResourceManager(TranslateServiceExample.Properties.Resources.ResourceManager);
+            ServiceLocator.ResourceContainer.ChangeCulture("kr");
+        }
+
+        protected override Window CreateWindow(IServiceContainer serviceProvider)
+        {
+            return new MainWindowView();
+        }
+
     }
 }
+
 
 ```
 
