@@ -1,4 +1,8 @@
-﻿using System.Text;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -9,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace IOCContainer.View
+namespace AutoViewTemplateSelector.View
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// FallbackView.xaml에 대한 상호 작용 논리
     /// </summary>
-    public partial class MainWindowView : Window
+    public partial class FallbackView : UserControl
     {
-        public MainWindowView()
+        public FallbackView()
         {
             InitializeComponent();
         }

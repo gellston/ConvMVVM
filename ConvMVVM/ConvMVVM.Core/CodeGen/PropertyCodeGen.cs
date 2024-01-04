@@ -5,6 +5,7 @@ using System.Text;
 using System.Collections.Immutable;
 using System.Diagnostics;
 using ConvMVVM.Core.CodeGen.GenInfo;
+using Microsoft.CodeAnalysis.CSharp;
 
 
 namespace ConvMVVM.Core.CodeGen
@@ -117,9 +118,16 @@ namespace ConvMVVM.Core.CodeGen
                 return;
             }
 
+
+    
+
             IEnumerable<ClassDeclarationSyntax> distinctClasses = classes.Distinct();
             foreach (var cls in distinctClasses)
             {
+                // Import all the packages
+                var usingDirectives = cls.SyntaxTree.GetCompilationUnitRoot().Usings;
+                var usingDeclaration = new StringBuilder($@"{usingDirectives}");
+
                 string clsNamespace = GetNamespace(compilation, cls);
                 if (cls.Modifiers.Count == 0) continue;
                 if (cls.Modifiers.Where((token) => token.ToString().Contains("partial") == true).Count() == 0)
@@ -175,7 +183,7 @@ namespace ConvMVVM.Core.CodeGen
                 }
       
                 var source = """
-                using ConvMVVM.Core.Component;
+                {using}
 
                 namespace {clsNamespace}{
                     partial class {clsName}{
@@ -212,6 +220,7 @@ namespace ConvMVVM.Core.CodeGen
                     propertyCodeGroup += propertyCode;
                 }
 
+                source = source.Replace("{using}", usingDeclaration.ToString());
                 source = source.Replace("{fieldCollection}", propertyCodeGroup);
 
                 context.AddSource($"{clsNamespace}.{cls.Identifier.ValueText}.g.cs", SourceText.From(source, Encoding.UTF8));

@@ -1,8 +1,8 @@
 ﻿using ConvMVVM.Core.IOC;
 using ConvMVVM.Core.Module;
 using ConvMVVM.WPF.Component;
-using IOCContainer.Service;
-using IOCContainer.ViewModel;
+using IOCContainerExample.Service;
+using IOCContainerExample.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace IOCContainer
+namespace IOCContainerExample
 {
     public class App : ConvMVVMApp
     {
