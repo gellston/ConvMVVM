@@ -155,9 +155,77 @@ RegionManager
 
 TranslateService
 =======================
+```xml
+<Window x:Class="TranslateServiceExample.View.MainWindowView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TranslateServiceExample"
+        xmlns:convMVVM="https://github.com/gellston/ConvMVVM"
+        convMVVM:ViewModelLocator.AutoWireViewModel="True"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <DockPanel>
+        <Button DockPanel.Dock="Bottom" Height="40" Content="{convMVVM:TranslateExtensions Language}"
+                Command="{Binding TestCommand}"></Button>
+        <TextBlock Text="{convMVVM:TranslateExtensions TestContent}"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"></TextBlock>
+    </DockPanel>
+</Window>
+```
 ```csharp
-//예제 준비중입니다...
+namespace TranslateServiceExample.ViewModel
+{
+    partial class MainWindowViewModel : NotifyObject
+    {
 
+        #region Private Property
+        private readonly ITranslateService translateService;
+        private readonly IResourceContainer resourceContainer;
+        #endregion
+
+        #region Constructor
+        public MainWindowViewModel(ITranslateService translateService,
+                                   IResourceContainer resourceContainer) { 
+        
+            this.translateService = translateService;
+            this.resourceContainer = resourceContainer;
+        }
+        #endregion
+
+        #region Command
+        [RelayCommand]
+        private void Test()
+        {
+            try
+            {
+                if(this.resourceContainer.CultureName == "en")
+                {
+                    this.resourceContainer.ChangeCulture("kr");
+                }
+                else
+                {
+                    this.resourceContainer.ChangeCulture("en");
+                }
+                System.Diagnostics.Debug.WriteLine(this.translateService["TestContent"]);
+                System.Diagnostics.Debug.WriteLine(this.translateService["Language"]);
+            }
+            catch(Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex.Message);
+            }
+        }
+        #endregion
+    }
+}
+
+```
+
+TranslateService
+=======================
+```
 ```
 
 License

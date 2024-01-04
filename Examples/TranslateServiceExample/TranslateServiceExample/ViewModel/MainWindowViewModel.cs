@@ -33,7 +33,6 @@ namespace TranslateServiceExample.ViewModel
         {
             try
             {
-
                 if(this.resourceContainer.CultureName == "en")
                 {
                     this.resourceContainer.ChangeCulture("kr");
@@ -42,14 +41,8 @@ namespace TranslateServiceExample.ViewModel
                 {
                     this.resourceContainer.ChangeCulture("en");
                 }
-
-
                 System.Diagnostics.Debug.WriteLine(this.translateService["TestContent"]);
                 System.Diagnostics.Debug.WriteLine(this.translateService["Language"]);
-
-
-                
-
             }
             catch(Exception ex)
             {
