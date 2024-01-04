@@ -269,6 +269,64 @@ AutoViewTemplateSelector
 ```
 > it support to place view by view model name automatically
 
+
+
+Module
+=======================
+```xml
+namespace AModule
+{
+    public class Module : IModule
+    {
+        public void OnInitialized(IServiceContainer container)
+        {
+
+            var regionManager = container.GetService<IRegionManager>();
+            regionManager.NavigateCache("MainContent", "AView");
+        }
+
+        public void OnInitResource(IServiceContainer container)
+        {
+        }
+
+        public void OnInitServiceLocator()
+        {
+            ServiceLocator.RegionManager.RegisterCacheView<AView>();
+        }
+
+        public void RegisterService(IServiceCollection serviceCollection)
+        {
+            serviceCollection.RegisterCache<AViewModel>();
+        }
+    }
+}
+```
+```xml
+namespace ModuleExample
+{
+    internal class App : ConvMVVMApp
+    {
+
+        protected override void ConfigureModule(ModuleCollection modules)
+        {
+            modules.AddModule<AModule.Module>();
+        }
+
+        protected override void ConfigureServiceCollection(IServiceCollection serviceCollection)
+        {
+            serviceCollection.RegisterCache<MainWindowViewModel>();
+        }
+
+        protected override Window CreateWindow(IServiceContainer serviceProvider)
+        {
+            return new MainWindowView();
+        }
+    }
+}
+```
+> it support to make module separately and use in main application
+
+
 License
 =======================
 

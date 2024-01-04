@@ -19,12 +19,10 @@ namespace AModule
 
             var regionManager = container.GetService<IRegionManager>();
             regionManager.NavigateCache("MainContent", "AView");
-         
         }
 
         public void OnInitResource(IServiceContainer container)
         {
-            
         }
 
         public void OnInitServiceLocator()
