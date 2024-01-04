@@ -19,15 +19,14 @@ namespace TranslateServiceExample
         {
 
             serviceCollection.RegisterCache<MainWindowViewModel>();
-            
 
-            
         }
 
         protected override void ConfigureServiceLocator()
         {
-            
-            //ServiceLocator.ResourceContainer.ChangeResourceManager()
+           
+            ServiceLocator.ResourceContainer.ChangeResourceManager(TranslateServiceExample.Properties.Resources.ResourceManager);
+            ServiceLocator.ResourceContainer.ChangeCulture("kr");
         }
 
         protected override Window CreateWindow(IServiceContainer serviceProvider)
