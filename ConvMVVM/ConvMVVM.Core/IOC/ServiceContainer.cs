@@ -1,5 +1,7 @@
 ﻿
 
+using ConvMVVM.Core.Component;
+
 namespace ConvMVVM.Core.IOC
 {
     public class ServiceContainer : IServiceContainer
@@ -49,6 +51,11 @@ namespace ConvMVVM.Core.IOC
                     var defaultParams = defaultConstructor.GetParameters();
                     var parameters = defaultParams.Select(param => Create(param.ParameterType)).ToArray();
                     var service = defaultConstructor.Invoke(parameters);
+                    if (service.GetType().IsSubclassOf(typeof(NotifyObject)))
+                    {
+                        var _service = service as NotifyObject;
+                        _service.OnActive();
+                    }
                     return service;
                 }
                 
@@ -56,6 +63,11 @@ namespace ConvMVVM.Core.IOC
                 {
                     var methodInfo = callback.GetType().GetMethod("Invoke");
                     var service = methodInfo.Invoke(callback, new[] { this });
+                    if (service.GetType().IsSubclassOf(typeof(NotifyObject)))
+                    {
+                        var _service = service as NotifyObject;
+                        _service.OnActive();
+                    }
                     return service;
                 }
 
@@ -69,6 +81,11 @@ namespace ConvMVVM.Core.IOC
                     var parameters = defaultParams.Select(param => Create(param.ParameterType)).ToArray();
                     var service = defaultConstructor.Invoke(parameters);
                     this.cacheObjects[type] = service;
+                    if (service.GetType().IsSubclassOf(typeof(NotifyObject)))
+                    {
+                        var _service = service as NotifyObject;
+                        _service.OnActive();
+                    }
                     return service;
                 }
 
@@ -80,6 +97,11 @@ namespace ConvMVVM.Core.IOC
                     var methodInfo = callback.GetType().GetMethod("Invoke");
                     var service = methodInfo.Invoke(callback, new[] { this });
                     this.cacheObjects[type] = service;
+                    if (service.GetType().IsSubclassOf(typeof(NotifyObject)))
+                    {
+                        var _service = service as NotifyObject;
+                        _service.OnActive();
+                    }
                     return service;
                 }
 
@@ -89,6 +111,11 @@ namespace ConvMVVM.Core.IOC
                         return this.cacheObjects[type];
 
                     this.cacheObjects[type] = cacheObject;
+                    if (cacheObject.GetType().IsSubclassOf(typeof(NotifyObject)))
+                    {
+                        var _service = cacheObject as NotifyObject;
+                        _service.OnActive();
+                    }
                     return cacheObject;
                 }
 
