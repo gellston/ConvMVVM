@@ -1,8 +1,6 @@
 ﻿
+using ConvMVVM.Core.IOC;
 
-
-
-using ConvMVVM.Core.Messenger;
 
 namespace ConsoleTest
 {
@@ -11,10 +9,7 @@ namespace ConsoleTest
     {
         public A() {
 
-            WeakReferenceMessenger.Default.Register<A, object>(this, (receiver, message) =>
-            {
 
-            });
         }
     }
 
@@ -22,7 +17,17 @@ namespace ConsoleTest
     {
         static void Main(string[] args)
         {
-  
+            var serviceCollection = ServiceCollection.Create();
+            serviceCollection.RegisterNoneCache<AViewModel>();
+            serviceCollection.RegisterNoneCache<BViewModel>();
+
+
+
+            var container = serviceCollection.CreateContainer();
+
+            var aViewModel = container.GetService<AViewModel>();
+            var bViewModel = container.GetService<BViewModel>();
+
         }
     }
 }

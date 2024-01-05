@@ -4,30 +4,32 @@ using System.Text;
 
 namespace ConvMVVM.Core.Messenger
 {
-    internal class MessageHandler<TReceiver, TMessage> : IMessageHandler where TReceiver : class
+    internal class AsyncMessageHandler<TReceiver, TMessage> : IAsyncMessageHandler where TReceiver : class
     {
         #region Private Property
-        private readonly Action<TReceiver, TMessage> handler;
+        private readonly Func<TReceiver, TMessage, Task> handler;
         private WeakReference<TReceiver> receiver;
         #endregion
 
         #region Constructor
-        public MessageHandler(Action<TReceiver, TMessage> handler, TReceiver _receiver) { 
+        public AsyncMessageHandler(Func<TReceiver, TMessage, Task> handler, TReceiver _receiver)
+        {
             this.handler = handler;
             receiver = new WeakReference<TReceiver>(_receiver);
         }
         #endregion
 
+
         #region Functions
-        public void Callback(object message)
+        public async Task Callback(object message)
         {
-            if(this.handler!=null)
+            if (this.handler != null)
             {
-          
+
                 TReceiver receiver;
-                if(this.receiver.TryGetTarget(out receiver))
+                if (this.receiver.TryGetTarget(out receiver))
                 {
-                    this.handler(receiver, (TMessage)message);
+                    await this.handler(receiver, (TMessage)message);
                 }
             }
         }
@@ -44,7 +46,7 @@ namespace ConvMVVM.Core.Messenger
 
         public bool IsAlive()
         {
-            TReceiver receiver = null ;
+            TReceiver receiver = null;
             this.receiver.TryGetTarget(out receiver);
 
             return receiver != null;

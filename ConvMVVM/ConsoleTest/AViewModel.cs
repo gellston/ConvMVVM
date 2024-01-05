@@ -1,5 +1,6 @@
 ﻿using ConvMVVM.Core.Attributes;
 using ConvMVVM.Core.Component;
+using ConvMVVM.Core.Messenger;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -22,10 +23,18 @@ namespace ConsoleTest
         private ObservableCollection<string> _Test2 = null;
 
 
-        [RelayCommand]
-        private void Test()
+        [AsyncRelayCommand]
+        public async Task Test()
         {
-
+            await WeakReferenceMessenger.Default.AsyncSend("tes1231231231231t");
         }
+
+        #region Functions
+        public override void OnActive()
+        {
+            System.Diagnostics.Debug.WriteLine("test");
+        }
+        #endregion
+
     }
 }

@@ -38,5 +38,12 @@ namespace ConvMVVM.Core.Component
             }
         }
         #endregion
+
+        #region Protected Function
+        public virtual void OnActive()
+        {
+
+        }
+        #endregion
     }
 }

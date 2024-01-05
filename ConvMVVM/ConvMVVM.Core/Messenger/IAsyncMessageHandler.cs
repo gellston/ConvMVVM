@@ -4,12 +4,12 @@ using System.Text;
 
 namespace ConvMVVM.Core.Messenger
 {
-    public interface IMessageHandler
+    public interface IAsyncMessageHandler
     {
         public Type MessageType();
         public Type ReceiverType();
 
-        public void Callback(object message);
+        public Task Callback(object message);
 
         public bool IsAlive();
     }
