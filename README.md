@@ -327,6 +327,69 @@ namespace ModuleExample
 > it support to make module separately and use in main application
 
 
+Messenger
+=======================
+```xml
+namespace MessengerExample.ViewModel
+{
+    partial class AViewModel : NotifyObject
+    {
+
+        #region Constructor
+        public AViewModel() { 
+        
+        
+        }
+        #endregion
+
+
+        #region Command
+        [RelayCommand]
+        private void Test()
+        {
+
+
+            WeakReferenceMessenger.Default.Send("There is no cow level");
+        }
+        #endregion
+    }
+}
+```
+
+```xml
+namespace MessengerExample.ViewModel
+{
+    partial class BViewModel : NotifyObject
+    {
+        #region Constructor
+        public BViewModel() { 
+        
+        
+        }
+        #endregion
+
+
+        #region Public Property
+
+        [Property]
+        private string _Test = "";
+        #endregion
+
+
+        #region Event Handler
+        public override void OnActive()
+        {
+            WeakReferenceMessenger.Default.Register<BViewModel, string>(this, (receiver, message) =>
+            {
+                this.Test = message;
+            });
+        }
+        #endregion
+    }
+}
+```
+> it support to send message between viewmodels
+
 License
 =======================
 
