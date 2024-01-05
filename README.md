@@ -273,7 +273,7 @@ AutoViewTemplateSelector
 
 Module
 =======================
-```xml
+```csharp
 namespace AModule
 {
     public class Module : IModule
@@ -301,7 +301,7 @@ namespace AModule
     }
 }
 ```
-```xml
+```csharp
 namespace ModuleExample
 {
     internal class App : ConvMVVMApp
@@ -329,7 +329,7 @@ namespace ModuleExample
 
 Messenger
 =======================
-```xml
+```csharp
 namespace MessengerExample.ViewModel
 {
     partial class AViewModel : NotifyObject
@@ -356,7 +356,7 @@ namespace MessengerExample.ViewModel
 }
 ```
 
-```xml
+```csharp
 namespace MessengerExample.ViewModel
 {
     partial class BViewModel : NotifyObject
