@@ -22,7 +22,7 @@ namespace WPFTest
         {
 
             serviceCollection.RegisterCache<MainWindowViewModel>();
-            serviceCollection.RegisterCache<AWindowViewModel>();
+       
         }
 
 
@@ -35,7 +35,6 @@ namespace WPFTest
         protected override void ConfigureServiceLocator()
         {
 
-            ServiceLocator.DialogService.RegisterDialog<AWindowView>();
 
            
         }
@@ -45,6 +44,7 @@ namespace WPFTest
     
 
             modules.AddModule<ModuleTest.Module>();
+            modules.AddModule<CModule.Module>();
         }
 
         protected override Window CreateWindow(IServiceContainer serviceProvider)

@@ -10,6 +10,13 @@
         convMVVM:ViewModelLocator.AutoWireViewModel="True"
         convMVVM:DialogServiceViews.IsRegistered="True">
     <Grid Background="Green">
-        <Button Command="{Binding TestCommand}"></Button>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <ContentControl convMVVM:RegionManager.RegionName="MainContent"
+                        Grid.Row="0"></ContentControl>
+        <Button Command="{Binding TestCommand}"
+                Grid.Row="1"></Button>
     </Grid>
 </Window>

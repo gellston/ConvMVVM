@@ -71,6 +71,23 @@ namespace ConvMVVM.WPF.Service.DialogService
             }
         }
 
+        internal static void LaterRegister(object sender, RoutedEventArgs e)
+        {
+            if(e.Source is FrameworkElement frameworkElement)
+            {
+                frameworkElement.Loaded -= LaterRegister;
+
+                if(frameworkElement is IView view)
+                {
+                    Register(view);
+                }
+                else
+                {
+                    Register(new ViewWrapper(frameworkElement));
+                }
+            }
+        }
+
         #endregion
 
         #region Property
@@ -86,6 +103,8 @@ namespace ConvMVVM.WPF.Service.DialogService
 
             if(owner == null)
             {
+                var frameworkElement = view.Source as FrameworkElement;
+                frameworkElement.Loaded += LaterRegister;
                 return;
             }
 

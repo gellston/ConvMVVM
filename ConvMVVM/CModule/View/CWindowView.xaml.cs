@@ -1,8 +1,8 @@
-﻿using System;
+﻿using DevExpress.Xpf.Core;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -10,17 +10,17 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace ModuleTest.View
+
+namespace CModule.View
 {
     /// <summary>
-    /// BView.xaml에 대한 상호 작용 논리
+    /// Interaction logic for CWindowView.xaml
     /// </summary>
-    public partial class BView : System.Windows.Controls.UserControl
+    public partial class CWindowView : ThemedWindow
     {
-        public BView()
+        public CWindowView()
         {
             InitializeComponent();
         }

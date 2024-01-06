@@ -33,7 +33,7 @@ namespace ModuleTest.ViewModel
         [RelayCommand]
         public void Test()
         {
-            this.dialogService.ShowDialog(this, "AWindowView", "there is no cow level", 500, 500);
+            this.dialogService.ShowDialog(this, "CWindowView", "there is no cow level", 500, 500);
         }
         #endregion
     }
