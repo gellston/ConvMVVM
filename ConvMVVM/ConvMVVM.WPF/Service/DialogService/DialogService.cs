@@ -1,4 +1,5 @@
-﻿using ConvMVVM.Core.IOC;
+﻿using ConvMVVM.Core.Component;
+using ConvMVVM.Core.IOC;
 using ConvMVVM.Core.Service.DialogService;
 using System.Windows;
 
@@ -58,7 +59,7 @@ namespace ConvMVVM.WPF.Service.DialogService
         public void RegisterDialog<TWindow>() where TWindow : class
         {
             var type = typeof(TWindow);
-            if(type.BaseType != typeof(Window))
+            if(!type.IsSubclassOf(typeof(Window)))
                 throw new ArgumentException(nameof(type));
 
             this.RegisterDialog(typeof(TWindow));
@@ -148,14 +149,13 @@ namespace ConvMVVM.WPF.Service.DialogService
             return viewModel.DialogResult;
         }
 
-        public void Show(System.ComponentModel.INotifyPropertyChanged ownerViewModel, string windowName, string title, int width, int height)
+        public void Show(System.ComponentModel.INotifyPropertyChanged ownerViewModel, string windowName, int width, int height)
         {
 
             Window window = DialogTypeStorage.CreateDialog(windowName);
             var name = windowName.Replace("View", "ViewModel");
             var viewModelType = this.container.KeyType(name);
-            var viewModel = this.container.GetService(viewModelType) as IModalDialogViewModel;
-            viewModel.Title = title;
+            var viewModel = this.container.GetService(viewModelType);
 
             window.DataContext = viewModel;
             var ownerWindow = this.FindOwnerWindow(ownerViewModel);
@@ -167,7 +167,7 @@ namespace ConvMVVM.WPF.Service.DialogService
 
         }
 
-        public void Show(System.ComponentModel.INotifyPropertyChanged ownerViewModel, IModalDialogViewModel viewModel, string title, int width, int height)
+        public void Show(System.ComponentModel.INotifyPropertyChanged ownerViewModel, IModalDialogViewModel viewModel, int width, int height)
         {
             var viewModelName = viewModel.GetType().Name;
             var name = viewModelName.Replace("ViewModel", "View");

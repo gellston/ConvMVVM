@@ -18,8 +18,8 @@ namespace ConvMVVM.Core.Service.DialogService
 
         public bool ShowDialog(System.ComponentModel.INotifyPropertyChanged ownerViewModel, string windowName, string title, int width, int height);
         public bool ShowDialog(System.ComponentModel.INotifyPropertyChanged ownerViewModel, IModalDialogViewModel viewModel, string title, int width, int height);
-        public void Show(System.ComponentModel.INotifyPropertyChanged ownerViewModel, string windowName, string title, int width, int height);
-        public void Show(System.ComponentModel.INotifyPropertyChanged ownerViewModel, IModalDialogViewModel viewModel, string title, int width, int height);
+        public void Show(System.ComponentModel.INotifyPropertyChanged ownerViewModel, string windowName, int width, int height);
+        public void Show(System.ComponentModel.INotifyPropertyChanged ownerViewModel, IModalDialogViewModel viewModel, int width, int height);
         #endregion
 
     }
