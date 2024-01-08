@@ -15,9 +15,11 @@ namespace ConsoleTest
     {
         public AViewModel() { 
         
-         
-            
+           this.Test2 = new ObservableCollection<string>();
+          
         }
+
+        private string _Test22 = "false";
 
         [Property]
         private ObservableCollection<string> _Test2 = null;
