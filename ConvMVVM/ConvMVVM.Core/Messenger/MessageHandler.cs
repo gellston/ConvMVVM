@@ -21,7 +21,7 @@ namespace ConvMVVM.Core.Messenger
         #region Functions
         public void Callback(object message)
         {
-            if(this.handler!=null)
+            if(this.handler!=null && this.MessageType() == message.GetType())
             {
           
                 TReceiver receiver;
