@@ -7,7 +7,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Platforms>AnyCPU;x64</Platforms>
 	<EnforceExtendedAnalyzerRules>true</EnforceExtendedAnalyzerRules>
-	<Version>1.0.18</Version>
+	<Version>1.0.19</Version>
 	<PackageIcon>convergence.png</PackageIcon>
 	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 	<IncludePackageReferencesDuringMarkupCompilation>true</IncludePackageReferencesDuringMarkupCompilation>
