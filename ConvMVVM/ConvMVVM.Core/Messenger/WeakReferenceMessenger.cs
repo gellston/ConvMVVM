@@ -44,7 +44,7 @@ namespace ConvMVVM.Core.Messenger
                 handler.Callback(message);
         }
 
-        public void Send<TMessage, TReceiver>(TMessage message) where TReceiver : Type
+        public void Send<TMessage, TReceiver>(TMessage message) where TReceiver : class
         {
             if(this.receivers.ContainsKey(typeof(TReceiver)) != false)
             {
