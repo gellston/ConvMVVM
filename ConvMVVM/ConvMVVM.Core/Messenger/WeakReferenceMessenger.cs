@@ -46,7 +46,7 @@ namespace ConvMVVM.Core.Messenger
 
         public void Send<TMessage, TReceiver>(TMessage message) where TReceiver : class
         {
-            if(this.receivers.ContainsKey(typeof(TReceiver)) != false)
+            if(this.receivers.ContainsKey(typeof(TReceiver)) == false)
             {
                 throw new InvalidOperationException("There is no proper receiver type");
             }
@@ -97,7 +97,7 @@ namespace ConvMVVM.Core.Messenger
 
         public async Task AsyncSend<TMessage, TReceiver>(TMessage message) where TReceiver : Type
         {
-            if (this.asyncReceivers.ContainsKey(typeof(TReceiver)) != false)
+            if (this.asyncReceivers.ContainsKey(typeof(TReceiver)) == false)
             {
                 throw new InvalidOperationException("There is no proper receiver type");
             }
