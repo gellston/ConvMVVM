@@ -13,7 +13,11 @@ namespace ConvMVVM.WPF.Service.DialogService.Extensions
 
         internal static Window GetOwner(this FrameworkElement frameworkElement)
         {
-            return frameworkElement as Window ?? Window.GetWindow(frameworkElement);
+            var _window = frameworkElement as Window;
+            if (_window != null)
+                return _window;
+
+            return  Window.GetWindow(frameworkElement);
         }
     }
 

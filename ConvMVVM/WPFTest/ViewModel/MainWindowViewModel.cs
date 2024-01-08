@@ -30,7 +30,6 @@ namespace WPFTest.ViewModel
         private void Test()
         {
 
-            this.dialogService.ShowDialog(this, "BView", "there is no cow level", 500, 500);
 
         }
 

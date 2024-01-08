@@ -22,8 +22,11 @@ namespace ConvMVVM.WPF.Service.DialogService
         protected virtual Window FindOwnerWindow(System.ComponentModel.INotifyPropertyChanged viewModel)
         {
             IView? view = DialogServiceViews.Views.SingleOrDefault(registerView => {
-                var window = registerView.Source as Window;
-                if (window == null) return false;
+                var window = registerView.GetOwner() as Window;
+                if (window == null)
+                {
+                    return false;
+                }
                 return window.IsLoaded == true && ReferenceEquals(registerView.DataContext, viewModel);
              });
 

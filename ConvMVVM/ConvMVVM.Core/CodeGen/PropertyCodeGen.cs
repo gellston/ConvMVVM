@@ -96,8 +96,32 @@ namespace ConvMVVM.Core.CodeGen
 
             foreach (FieldDeclarationSyntax field in cls.DescendantNodes().OfType<FieldDeclarationSyntax>())
             {
+                bool found = false;
+                foreach (AttributeListSyntax attributeListSyntax in field.AttributeLists)
+                {
+                    foreach (AttributeSyntax attributeSyntax in attributeListSyntax.Attributes)
+                    {
+                        if (model.GetSymbolInfo(attributeSyntax).Symbol is not IMethodSymbol attributeSymbol)
+                        {
+                            continue;
+                        }
+                        INamedTypeSymbol attributeContainingTypeSymbol = attributeSymbol.ContainingType;
+                        string fullName = attributeContainingTypeSymbol.ToDisplayString();
+                        if (fullName == "ConvMVVM.Core.Attributes.PropertyAttribute")
+                        {
+                            found = true;
+                            break;
+                        }
+                    }
+
+                    if (found == true) break;
+                }
+
+                if (found == false) continue;
+
                 foreach (var item in field.Declaration.Variables)
                 {
+                    
                     AutoFieldInfo info = new AutoFieldInfo
                     {
                         Identifier = item.Identifier.ValueText,

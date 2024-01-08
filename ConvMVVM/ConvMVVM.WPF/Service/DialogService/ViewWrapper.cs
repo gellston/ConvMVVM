@@ -67,7 +67,7 @@ namespace ConvMVVM.WPF.Service.DialogService
             FrameworkElement frameworkElement = this.Source as FrameworkElement;
             if (frameworkElement == null) return null;
             
-            var window = frameworkElement.GetOwner();
+            var window = Window.GetWindow(frameworkElement);
             return window;
         }
 
