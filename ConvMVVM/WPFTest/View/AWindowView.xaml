@@ -5,9 +5,9 @@
     xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
     Title="AWindowView" Height="800" Width="1000"
     xmlns:convMVVM="https://github.com/gellston/ConvMVVM"
-    convMVVM:ViewModelLocator.AutoWireViewModel="True">
+    convMVVM:ViewModelLocator.AutoWireViewModel="True"
+    convMVVM:DialogServiceViews.IsRegistered="True">
 
-    <Grid Background="Red">
+    <ContentControl convMVVM:RegionManager.RegionName="AView"></ContentControl>
 
-    </Grid>
 </dx:ThemedWindow>

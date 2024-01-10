@@ -75,7 +75,7 @@ namespace ConvMVVM.WPF.Service.DialogService
         {
             if(e.Source is FrameworkElement frameworkElement)
             {
-                frameworkElement.Loaded -= LaterRegister;
+                //frameworkElement.Loaded -= LaterRegister;
 
                 if(frameworkElement is IView view)
                 {
@@ -104,6 +104,7 @@ namespace ConvMVVM.WPF.Service.DialogService
             if(owner == null)
             {
                 var frameworkElement = view.Source as FrameworkElement;
+                frameworkElement.Loaded -= LaterRegister;
                 frameworkElement.Loaded += LaterRegister;
                 return;
             }
@@ -113,8 +114,10 @@ namespace ConvMVVM.WPF.Service.DialogService
             owner.Closed -= OwnerClosed;
             owner.Closed += OwnerClosed;
 
-
-            InternalViews.Add(view);
+            if (InternalViews.Count((_view) => _view.Source == view.Source) == 0)
+            {
+                InternalViews.Add(view);
+            }
 
         }
 

@@ -18,7 +18,7 @@ namespace ConvMVVM.WPF.Component
         
             ConfigureModule(Modules);
             Services = ConfigureServices();
-            ConfigureServiceLocator();
+ 
 
         }
         #endregion
@@ -61,26 +61,32 @@ namespace ConvMVVM.WPF.Component
         #region Function
         private IServiceContainer ConfigureServices()
         {
+
+            //Service 등록
             var services = ServiceCollection.Create();
             services.AddDialogService();
             services.AddRegionManager();
             services.AddResourceContainer();
             services.AddTranslateService();
-
-
             foreach (var module in Modules)
             {
                 module.RegisterService(services);
             }
-
             ConfigureServiceCollection(services);
 
+
+            //ServiceLocator 준비 
             var serviceProvider = services.CreateContainer();
             serviceProvider.AddDialogServiceLocator();
             serviceProvider.AddViewModelLocator();
+            ConfigureServiceLocator();
 
 
+
+            //Service 초기화 
             ConfigureServiceProvider(serviceProvider);
+
+
 
             return serviceProvider;
         }
