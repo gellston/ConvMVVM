@@ -1,6 +1,7 @@
 ﻿using ConvMVVM.Core.IOC;
 using ConvMVVM.Core.Module;
 using ConvMVVM.Core.Module.Extensions;
+using ConvMVVM.Core.Service.RegionManager;
 using ConvMVVM.WPF.Component;
 using ConvMVVM.WPF.Service;
 using System;
@@ -22,19 +23,31 @@ namespace WPFTest
         {
 
             serviceCollection.RegisterCache<MainWindowViewModel>();
+            serviceCollection.RegisterCache<AWindowViewModel>();
+            serviceCollection.RegisterCache<BWindowViewModel>();
+            serviceCollection.RegisterCache<AViewModel>();
+            serviceCollection.RegisterCache<TestViewModel>();
        
         }
 
 
         protected override void ConfigureServiceProvider(IServiceContainer serviceProvider)
         {
-            
+            var regionManager = serviceProvider.GetService<IRegionManager>();
+            regionManager.NavigateCache("TestView", "TestView");
+            regionManager.NavigateCache("AView", "AView");
         }
 
 
         protected override void ConfigureServiceLocator()
         {
 
+            ServiceLocator.RegionManager.RegisterCacheView<TestView>("TestView");
+            ServiceLocator.RegionManager.RegisterCacheView<AView>("AView");
+
+            ServiceLocator.DialogService.RegisterDialog<AWindowView>();
+            ServiceLocator.DialogService.RegisterDialog<BWindowView>();
+           
 
            
         }
@@ -43,8 +56,6 @@ namespace WPFTest
         {
     
 
-            modules.AddModule<ModuleTest.Module>();
-            modules.AddModule<CModule.Module>();
         }
 
         protected override Window CreateWindow(IServiceContainer serviceProvider)
