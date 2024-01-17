@@ -10,5 +10,6 @@ using System.Windows.Markup;
 [assembly: XmlnsDefinition("https://github.com/gellston/ConvMVVM", "ConvMVVM.WPF.Service.ResourceContainer")]
 [assembly: XmlnsDefinition("https://github.com/gellston/ConvMVVM", "ConvMVVM.WPF.Service.TranslateService")]
 [assembly: XmlnsDefinition("https://github.com/gellston/ConvMVVM", "ConvMVVM.WPF.Service.ViewModelLocator")]
+[assembly: XmlnsDefinition("https://github.com/gellston/ConvMVVM", "ConvMVVM.WPF.Service.EnumStateManager")]
 [assembly: XmlnsDefinition("https://github.com/gellston/ConvMVVM", "ConvMVVM.WPF.Behaivors")]
 [assembly: XmlnsDefinition("https://github.com/gellston/ConvMVVM", "ConvMVVM.WPF.Template")]

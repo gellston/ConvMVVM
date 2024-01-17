@@ -14,6 +14,7 @@ namespace WPFTest.ViewModel
         public TestViewModel()
         {
 
+            
         }
         #endregion
 

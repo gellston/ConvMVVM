@@ -1,7 +1,7 @@
 ﻿using ConvMVVM.Core.Attributes;
 using ConvMVVM.Core.Component;
 using ConvMVVM.Core.Service.DialogService;
-using Microsoft.Win32;
+using ConvMVVM.WPF.Service.EnumStateManager;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,12 +15,16 @@ namespace WPFTest.ViewModel
     {
         #region Private Property
         private readonly IDialogService dialogService;
+        private readonly IEnumStateManager enumStateManager;
         #endregion
 
         #region Constructor
-        public MainWindowViewModel(IDialogService _dialogService) { 
+        public MainWindowViewModel(IDialogService _dialogService,
+                                   IEnumStateManager _enumStateManager) { 
         
-           this.dialogService = _dialogService;
+            this.dialogService = _dialogService;
+            this.enumStateManager = _enumStateManager;
+
         }
         #endregion
 
@@ -29,8 +33,8 @@ namespace WPFTest.ViewModel
         [RelayCommand]
         private void Test()
         {
-
-            this.dialogService.ShowDialog(this, "AWindowView", "test", 500, 500);
+            Enum.TestEnum test = Enum.TestEnum.OK;
+            this.enumStateManager.ChangeState(test);
         }
 
         #endregion
