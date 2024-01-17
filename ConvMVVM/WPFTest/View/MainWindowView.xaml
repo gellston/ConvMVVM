@@ -6,16 +6,23 @@
         xmlns:local="clr-namespace:WPFTest"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800"
+        xmlns:converter="clr-namespace:WPFTest.Converter"
         xmlns:convMVVM="https://github.com/gellston/ConvMVVM"
         convMVVM:ViewModelLocator.AutoWireViewModel="True"
         convMVVM:DialogServiceViews.IsRegistered="True">
+    <Window.Resources>
+        <converter:TestConverter x:Key="TestConverter"></converter:TestConverter>
+    </Window.Resources>
     <Grid Background="Green">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
-        <ContentControl convMVVM:RegionManager.RegionName="MainContent"
-                        Grid.Row="0"></ContentControl>
+        <TextBlock Grid.Row="0"
+                   Text="{convMVVM:EnumStateExtensions WPFTest.Enum.TestEnum, Converter={StaticResource TestConverter}}"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center">
+        </TextBlock>
         <Button Command="{Binding TestCommand}"
                 Grid.Row="1"></Button>
     </Grid>

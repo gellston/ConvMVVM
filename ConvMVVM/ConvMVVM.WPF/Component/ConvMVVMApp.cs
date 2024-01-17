@@ -68,6 +68,7 @@ namespace ConvMVVM.WPF.Component
             services.AddRegionManager();
             services.AddResourceContainer();
             services.AddTranslateService();
+            services.AddEnumStateManager();
             foreach (var module in Modules)
             {
                 module.RegisterService(services);

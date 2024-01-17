@@ -6,7 +6,7 @@
     <UseWPF>true</UseWPF>
     <ImplicitUsings>enable</ImplicitUsings>
     <Platforms>AnyCPU;x64</Platforms>
-	  <Version>1.0.20</Version>
+	  <Version>1.0.21</Version>
     <PackageIcon>convergence.png</PackageIcon>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
   </PropertyGroup>

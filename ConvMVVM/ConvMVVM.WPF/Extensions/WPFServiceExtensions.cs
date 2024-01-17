@@ -3,6 +3,7 @@ using ConvMVVM.Core.Service.DialogService;
 using ConvMVVM.Core.Service.RegionManager;
 using ConvMVVM.Core.Service.TranslateService;
 using ConvMVVM.WPF.Service;
+using ConvMVVM.WPF.Service.EnumStateManager;
 using ConvMVVM.WPF.Service.RegionManager;
 using ConvMVVM.WPF.Service.ResourceContainer;
 using ConvMVVM.WPF.Service.TranslateService;
@@ -42,6 +43,14 @@ namespace ConvMVVM.WPF.Extensions
 
             return serviceCollection;
         }
+
+        internal static IServiceCollection AddEnumStateManager(this IServiceCollection serviceCollection)
+        {
+            serviceCollection.RegisterCache<IEnumStateManager>(new EnumStateManager());
+
+            return serviceCollection;
+        }
+
 
 
 
