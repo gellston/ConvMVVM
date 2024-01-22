@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-	<TargetFramework>netstandard2.0</TargetFramework>
+	<TargetFramework>net7.0-windows</TargetFramework>
 	<LangVersion>preview</LangVersion>
     <UseWPF>true</UseWPF>
     <ImplicitUsings>enable</ImplicitUsings>
@@ -12,6 +12,7 @@
 	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 	<IncludePackageReferencesDuringMarkupCompilation>true</IncludePackageReferencesDuringMarkupCompilation>
 	<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+	<OutputType>Library</OutputType>
   </PropertyGroup>
 
   <ItemGroup>
