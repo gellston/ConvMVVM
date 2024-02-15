@@ -34,6 +34,32 @@ namespace ConvMVVM.WPF.Service.EnumStateManager
                 throw ex;
             }
         }
+
+        public string CheckState(string key)
+        {
+            try
+            {
+                return EnumStateObject.Instance.CheckState(key);
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public string CheckState<T>(T state) where T : Enum
+        {
+            try
+            {
+                return EnumStateObject.Instance.CheckState(state);
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
         #endregion
     }
 }
