@@ -13,6 +13,9 @@ namespace ConvMVVM.WPF.Service.EnumStateManager
         #region Public Functions
         public void ChangeState(string key, string value);
         public void ChangeState<T>(T state) where T : Enum;
+
+        public string CheckState(string key);
+        public string CheckState<T>(T state)where T : Enum;
         #endregion
     }
 }

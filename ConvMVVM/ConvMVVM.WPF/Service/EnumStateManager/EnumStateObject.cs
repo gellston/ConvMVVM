@@ -48,16 +48,20 @@ namespace ConvMVVM.WPF.Service.EnumStateManager
             }
         }
 
+
+        #endregion
+
+        #region Public Functions
         public void ChangeState(string key, string value)
         {
-            if(!this.stateMap.ContainsKey(key))
+            if (!this.stateMap.ContainsKey(key))
             {
                 this.stateMap.Add(key, value);
             }
 
             this.stateMap[key] = value;
 
-            if(this.PropertyChanged != null)
+            if (this.PropertyChanged != null)
                 this.PropertyChanged(this, new PropertyChangedEventArgs(""));
         }
 
@@ -69,7 +73,29 @@ namespace ConvMVVM.WPF.Service.EnumStateManager
                 var nameSpace = (typeof(T)).ToString();
                 this.ChangeState(nameSpace, value);
             }
-            catch(Exception ex)
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public string CheckState(string key)
+        {
+            if (!this.stateMap.ContainsKey(key))
+                return "";
+            else return this.stateMap[key];
+
+        }
+
+        public string CheckState<T>(T state) where T : Enum
+        {
+            try
+            {
+                var value = Enum.GetName(typeof(T), state);
+                var nameSpace = (typeof(T)).ToString();
+                return this.CheckState(nameSpace);
+            }
+            catch (Exception ex)
             {
                 throw ex;
             }
