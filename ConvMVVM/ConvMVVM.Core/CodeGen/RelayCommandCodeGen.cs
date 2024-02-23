@@ -119,7 +119,7 @@ namespace ConvMVVM.Core.CodeGen
                     }
                 }
 
-                if (detection == true) continue;
+                if (detection == false) continue;
 
 
                 switch (method.ParameterList.Parameters.Count)
