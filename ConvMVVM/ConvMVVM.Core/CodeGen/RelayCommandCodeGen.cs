@@ -99,6 +99,29 @@ namespace ConvMVVM.Core.CodeGen
                 if (returnType != "void") continue;
 
 
+                bool detection = false;
+                foreach (AttributeListSyntax attributeListSyntax in method.AttributeLists)
+                {
+                    foreach (AttributeSyntax attributeSyntax in attributeListSyntax.Attributes)
+                    {
+                        if (model.GetSymbolInfo(attributeSyntax).Symbol is not IMethodSymbol attributeSymbol)
+                        {
+                            continue;
+                        }
+
+                        INamedTypeSymbol attributeContainingTypeSymbol = attributeSymbol.ContainingType;
+                        string fullName = attributeContainingTypeSymbol.ToDisplayString();
+                        if (fullName == "ConvMVVM.Core.Attributes.RelayCommandAttribute")
+                        {
+                            detection = true;
+                            break;
+                        }
+                    }
+                }
+
+                if (detection == true) continue;
+
+
                 switch (method.ParameterList.Parameters.Count)
                 {
                     case 0:
