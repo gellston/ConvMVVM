@@ -25,10 +25,20 @@ namespace WPFTest.ViewModel
             this.dialogService = _dialogService;
             this.enumStateManager = _enumStateManager;
 
+
+            this.TestA = true;
+
+            System.Diagnostics.Debug.WriteLine("test");
         }
         #endregion
 
         #region Command
+
+
+        [Property]
+        private bool _TestA = false;
+
+
 
         [RelayCommand]
         private void Test()
