@@ -65,3 +65,5 @@
 /ConvMVVM/CModule/bin/x64/Debug/net7.0-windows
 /ConvMVVM/CModule/bin/Release/net7.0-windows
 /ConvMVVM/WPFTest/bin/x64/Release/net7.0-windows
+/ConvMVVM/ConvMVVM.WPF/bin/Debug
+/ConvMVVM/WPFTest/bin/Debug/net7.0-windows
