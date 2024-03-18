@@ -16,20 +16,30 @@ namespace WPFTest.ViewModel
         #region Private Property
         private readonly IDialogService dialogService;
         private readonly IEnumStateManager enumStateManager;
+        private readonly Func<object[], AViewModel> aviewModelFactory;
         #endregion
 
         #region Constructor
         public MainWindowViewModel(IDialogService _dialogService,
-                                   IEnumStateManager _enumStateManager) { 
+                                   IEnumStateManager _enumStateManager,
+                                   Func<object[], AViewModel> _aviewModelFactory) { 
         
             this.dialogService = _dialogService;
             this.enumStateManager = _enumStateManager;
 
+            this.aviewModelFactory = _aviewModelFactory;
 
-            this.TestA = true;
+  
 
-            System.Diagnostics.Debug.WriteLine("test");
         }
+        #endregion
+
+        #region Private Functions
+        private AViewModel CreateAViewModel(params object[] parameters)
+        {
+            return this.aviewModelFactory(parameters);
+        }
+
         #endregion
 
         #region Command

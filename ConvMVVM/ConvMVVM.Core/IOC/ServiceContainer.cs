@@ -1,6 +1,7 @@
 ﻿
 
 using ConvMVVM.Core.Component;
+using System.Reflection;
 
 namespace ConvMVVM.Core.IOC
 {
@@ -147,6 +148,44 @@ namespace ConvMVVM.Core.IOC
             {
                 return Create(serviceType);
             }catch(Exception ex)
+            {
+                throw new InvalidOperationException("Unknown", ex);
+            }
+        }
+
+        public TInterface GetService<TInterface>(params object[] properties)
+        {
+            try
+            {
+                return (TInterface)GetService(typeof(TInterface), properties);
+            }
+            catch (Exception ex)
+            {
+                throw new InvalidOperationException("Unknown", ex);
+            }
+        }
+        public object GetService(Type serviceType, params object[] properties)
+        {
+            try
+            {
+                var vm = Create(serviceType);
+                var type = vm.GetType();
+                if(type != null)
+                {
+                    MethodInfo[] methodInfos = type.GetMethods();
+                    foreach(var property in properties)
+                    {
+                        var methodInfo = methodInfos.Where(x => x.Name == "Inject" && 
+                                                                x.GetParameters().Length == 1 && 
+                                                                x.ReturnType == typeof(void))
+                                                    .Where(x => x.GetParameters()[0].ParameterType == property.GetType()).Single();
+                        methodInfo.Invoke(vm, new object[] { property });
+                    }
+                }
+
+                return vm;
+            }
+            catch (Exception ex)
             {
                 throw new InvalidOperationException("Unknown", ex);
             }

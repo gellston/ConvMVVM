@@ -23,33 +23,28 @@ namespace WPFTest
         {
 
             serviceCollection.RegisterCache<MainWindowViewModel>();
-            serviceCollection.RegisterCache<AWindowViewModel>();
-            serviceCollection.RegisterCache<BWindowViewModel>();
             serviceCollection.RegisterCache<AViewModel>();
-            serviceCollection.RegisterCache<TestViewModel>();
-       
+            serviceCollection.RegisterNoneCache<Func<object[], AViewModel>>((container) =>
+            {
+                return (object[] param) => {
+
+                    return container.GetService<AViewModel>(param);
+                };
+            });
         }
 
 
         protected override void ConfigureServiceProvider(IServiceContainer serviceProvider)
         {
-            var regionManager = serviceProvider.GetService<IRegionManager>();
-            regionManager.NavigateCache("TestView", "TestView");
-            regionManager.NavigateCache("AView", "AView");
+
+
         }
 
 
         protected override void ConfigureServiceLocator()
         {
 
-            ServiceLocator.RegionManager.RegisterCacheView<TestView>("TestView");
-            ServiceLocator.RegionManager.RegisterCacheView<AView>("AView");
-
-            ServiceLocator.DialogService.RegisterDialog<AWindowView>();
-            ServiceLocator.DialogService.RegisterDialog<BWindowView>();
-           
-
-           
+  
         }
 
         protected override void ConfigureModule(ModuleCollection modules)

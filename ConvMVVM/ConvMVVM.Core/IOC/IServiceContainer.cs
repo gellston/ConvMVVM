@@ -9,6 +9,8 @@ namespace ConvMVVM.Core.IOC
         public TInterface GetService<TInterface>() where TInterface: class;
         public object GetService(Type serviceType); 
         public Type KeyType(string key);
-        #endregion 
+        public TInterface GetService<TInterface>(params object[] properties);
+        public object GetService(Type serviceType, params object[] properties);
+        #endregion
     }
 }

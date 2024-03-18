@@ -1,5 +1,6 @@
 ﻿using ConvMVVM.Core.Attributes;
 using ConvMVVM.Core.Component;
+using ConvMVVM.Core.IOC;
 using ConvMVVM.Core.Service.DialogService;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ using System.Windows.Input;
 
 namespace ModuleTest.ViewModel
 {
-    partial class BViewModel : NotifyObject , IModalDialogViewModel
+    partial class BViewModel : NotifyObject , IModalDialogViewModel, IInject<int>
     {
 
         #region Private Property
@@ -27,6 +28,12 @@ namespace ModuleTest.ViewModel
         public bool DialogResult { get; set; } = true;
 
         public string Title { get; set; } = "";
+
+        public void Inject(int instance)
+        {
+
+            System.Diagnostics.Debug.WriteLine("test");
+        }
 
 
         #region Command

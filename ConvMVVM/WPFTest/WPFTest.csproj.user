@@ -2,27 +2,7 @@
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup />
   <ItemGroup>
-    <Compile Update="View\AView.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="View\BWindowView.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="View\TestView.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Page Update="View\AView.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="View\BWindowView.xaml">
-      <SubType>Designer</SubType>
-    </Page>
     <Page Update="View\MainWindowView.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="View\TestView.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
