@@ -12,5 +12,7 @@ namespace ConvMVVM.Core.Messenger
         public void Callback(object message);
 
         public bool IsAlive();
+
+        public bool Comapre(object _receiver);
     }
 }

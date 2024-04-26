@@ -16,18 +16,44 @@ namespace ConvMVVM.Core.Messenger
         #endregion
 
         #region Public Functions
+
+        public void UnRegisterAll<TReceiver>(TReceiver receiver)
+        {
+            if (this.receivers.ContainsKey(typeof(TReceiver)) == true)
+            {
+                var sameHandlers = this.receivers[typeof(TReceiver)].Where(handler => handler.Comapre(receiver)).ToList();
+                foreach(var handler in sameHandlers)
+                    this.receivers[typeof(TReceiver)].Remove(handler);
+            }
+        }
+
         public void Register<TReceiver, TMessage>(TReceiver receiver, Action<TReceiver, TMessage> callback) where TReceiver : class
         {
-            var handler = new MessageHandler<TReceiver, TMessage>(callback, receiver);
+            foreach (var keyPair in this.receivers)
+            {
+                var deadHandlers = keyPair.Value.Where(handler => handler.IsAlive() == false).ToList();
+                foreach (var handler in deadHandlers)
+                    keyPair.Value.Remove(handler);
+            }
+
+            var _handler = new MessageHandler<TReceiver, TMessage>(callback, receiver);
             if(this.receivers.ContainsKey(typeof(TReceiver)) == false)
             {
                 this.receivers[typeof(TReceiver)] = new List<IMessageHandler>();
             }
-            this.receivers[typeof(TReceiver)].Add(handler);
+            this.receivers[typeof(TReceiver)].Add(_handler);
         }
 
         public void Send<TMessage>(TMessage message)
         {
+
+            foreach (var keyPair in this.receivers)
+            {
+                var deadHandlers = keyPair.Value.Where(handler => handler.IsAlive() == false).ToList();
+                foreach (var handler in deadHandlers)
+                    keyPair.Value.Remove(handler);
+            }
+
             List<IMessageHandler> messageHandlers = new List<IMessageHandler>();
 
             foreach(var receiver in this.receivers)
@@ -46,7 +72,15 @@ namespace ConvMVVM.Core.Messenger
 
         public void Send<TMessage, TReceiver>(TMessage message) where TReceiver : class
         {
-            if(this.receivers.ContainsKey(typeof(TReceiver)) == false)
+
+            foreach (var keyPair in this.receivers)
+            {
+                var deadHandlers = keyPair.Value.Where(handler => handler.IsAlive() == false).ToList();
+                foreach (var handler in deadHandlers)
+                    keyPair.Value.Remove(handler);
+            }
+
+            if (this.receivers.ContainsKey(typeof(TReceiver)) == false)
             {
                 throw new InvalidOperationException("There is no proper receiver type");
             }
@@ -57,11 +91,6 @@ namespace ConvMVVM.Core.Messenger
             {
                 handler.Callback(message);
             }
-
-            this.receivers[typeof(TReceiver)].RemoveAll((handler) =>
-            {
-                return handler.IsAlive();
-            });
         }
 
 
@@ -69,16 +98,30 @@ namespace ConvMVVM.Core.Messenger
         //Async
         public void AsyncRegister<TReceiver, TMessage>(TReceiver receiver, Func<TReceiver, TMessage, Task> callback) where TReceiver : class
         {
-            var handler = new AsyncMessageHandler<TReceiver, TMessage>(callback, receiver);
+            foreach (var keyPair in this.asyncReceivers)
+            {
+                var deadHandlers = keyPair.Value.Where(handler => handler.IsAlive() == false).ToList();
+                foreach (var handler in deadHandlers)
+                    keyPair.Value.Remove(handler);
+            }
+
+            var _handler = new AsyncMessageHandler<TReceiver, TMessage>(callback, receiver);
             if (this.asyncReceivers.ContainsKey(typeof(TReceiver)) == false)
             {
                 this.asyncReceivers[typeof(TReceiver)] = new List<IAsyncMessageHandler>();
             }
-            this.asyncReceivers[typeof(TReceiver)].Add(handler);
+            this.asyncReceivers[typeof(TReceiver)].Add(_handler);
         }
 
         public async Task AsyncSend<TMessage>(TMessage message)
         {
+            foreach (var keyPair in this.asyncReceivers)
+            {
+                var deadHandlers = keyPair.Value.Where(handler => handler.IsAlive() == false).ToList();
+                foreach (var handler in deadHandlers)
+                    keyPair.Value.Remove(handler);
+            }
+
             List<IAsyncMessageHandler> messageHandlers = new List<IAsyncMessageHandler>();
 
             foreach (var receiver in this.asyncReceivers)
@@ -97,6 +140,13 @@ namespace ConvMVVM.Core.Messenger
 
         public async Task AsyncSend<TMessage, TReceiver>(TMessage message) where TReceiver : Type
         {
+            foreach (var keyPair in this.asyncReceivers)
+            {
+                var deadHandlers = keyPair.Value.Where(handler => handler.IsAlive() == false).ToList();
+                foreach (var handler in deadHandlers)
+                    keyPair.Value.Remove(handler);
+            }
+
             if (this.asyncReceivers.ContainsKey(typeof(TReceiver)) == false)
             {
                 throw new InvalidOperationException("There is no proper receiver type");
@@ -109,10 +159,6 @@ namespace ConvMVVM.Core.Messenger
                 await handler.Callback(message);
             }
 
-            this.asyncReceivers[typeof(TReceiver)].RemoveAll((handler) =>
-            {
-                return handler.IsAlive();
-            });
         }
 
         #endregion

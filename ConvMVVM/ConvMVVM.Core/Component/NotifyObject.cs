@@ -44,6 +44,11 @@ namespace ConvMVVM.Core.Component
         {
 
         }
+
+        public virtual void OnDeActive()
+        {
+
+        }
         #endregion
     }
 }

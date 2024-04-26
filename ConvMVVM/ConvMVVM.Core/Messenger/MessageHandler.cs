@@ -49,6 +49,14 @@ namespace ConvMVVM.Core.Messenger
 
             return receiver != null;
         }
+
+        public bool Comapre(object _receiver)
+        {
+            TReceiver receiver = null;
+            this.receiver.TryGetTarget(out receiver);
+
+            return receiver == _receiver;
+        }
         #endregion
     }
 }
