@@ -98,6 +98,7 @@ namespace ConvMVVM.WPF.Service.DialogService
         internal static void Register(IView view)
         {
             if (view == null) throw new ArgumentNullException(nameof(view));
+            if (view.IsAlive == false) return;
 
             Window owner = view.GetOwner() as Window;
 
@@ -129,6 +130,7 @@ namespace ConvMVVM.WPF.Service.DialogService
         internal static void Unregister(IView view)
         {
             if(view == null) throw new ArgumentNullException(nameof(view));
+            if(view.IsAlive == false) return;
 
             PruneInternalViews();
             InternalViews.RemoveAll(registeredView => ReferenceEquals(registeredView.Source, view.Source));
